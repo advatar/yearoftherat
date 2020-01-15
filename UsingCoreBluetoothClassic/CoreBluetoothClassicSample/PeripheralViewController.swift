@@ -34,6 +34,7 @@ class PeripheralViewController: UIViewController {
         pTableView.reloadData()
         
         self.initUI()
+        protobufIns.bpbDelegate = self 
         
         // Set peripheral delegate
         selectedPeripheral?.delegate = self
@@ -43,7 +44,7 @@ class PeripheralViewController: UIViewController {
     }
     
     func tableFootView() -> UIView {
-        let vi = UIView.init(frame: CGRect(x:0,y:0,width: Int(SCREEN_WIDTH),height: 100))
+        let vi = UIView.init(frame: CGRect(x:0,y:0,width: Int(SCREEN_WIDTH),height: 250))
         
         let footLabel = UILabel.init(frame: CGRect(x:0,y:0,width: Int(SCREEN_WIDTH),height: 50))
         footLabel.font = UIFont.systemFont(ofSize: 15)
@@ -232,7 +233,8 @@ extension PeripheralViewController: CBPeripheralDelegate {
 			return
 		}
 		os_log("Discovered services %@", peripheral.services ?? [])
-        let arr = [BTConstants.sampleCharacteristicNotifyUUID]
+        let arr = [BTConstants.sampleCharacteristicNotifyUUID,
+                   BTConstants.sampleCharacteristicWriteUUID]
         peripheral.discoverCharacteristics(arr, for: service)
 	}
 
@@ -243,17 +245,25 @@ extension PeripheralViewController: CBPeripheralDelegate {
 			}
 			return
 		}
-		os_log("Discovered characteristics %@", characteristics)
-		peripheral.setNotifyValue(true, for: service.characteristics!.first!)
+        os_log("Discovered characteristics %@", characteristics)
+        for character in characteristics {
+            switch character.uuid {
+            case BTConstants.sampleCharacteristicNotifyUUID:
+                peripheral.setNotifyValue(true, for: character)
+            case BTConstants.sampleCharacteristicWriteUUID:
+                writeCharacter = character
+            default:
+                break
+            }
+        }
 	}
 
 	func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard let value = characteristic.value as NSData? else {
+        guard let value = characteristic.value as Data? else {
             os_log("Unable to determine the characteristic's value.")
             return
         }
-        
-        os_log("Value for peripheral %@ updated to: %@", peripheral, value)
+        protobufIns.braceletCmdReceive(data: value)
 	}
 
 	func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
@@ -264,5 +274,11 @@ extension PeripheralViewController: CBPeripheralDelegate {
         selectedPeripheral = peripheral
         readCharacter = characteristic
         os_log("didUpdateNotificationStateFor: %@ - %@", peripheral, characteristic)
+    }
+}
+
+extension PeripheralViewController: BleProtobufDelegate {
+    func bleProtobufDidRecieveDeviceInfo(deviceInfo: DeviceInfoResponse) {
+        print("bleProtobufDidRecieveDeviceInfo \(deviceInfo)")
     }
 }

@@ -12,8 +12,8 @@ import os.log
 struct BTConstants {
 	// These are sample GATT service strings. Your accessory will need to include these services/characteristics in its GATT database
     static let sampleServiceUUID = CBUUID(string: "2E8C0001-2D91-5533-3117-59380A40AF8F")
-    static let sampleCharacteristicNotifyUUID = CBUUID(string: "2E8C0003-2D91-5533-3117-59380A40AF8F")
-    static let sampleCharacteristicWriteUUID = CBUUID(string: "2E8C0002-2D91-5533-3117-59380A40AF8F")
+    static let sampleCharacteristicNotifyUUID = CBUUID(string: "2E8C0002-2D91-5533-3117-59380A40AF8F")
+    static let sampleCharacteristicWriteUUID = CBUUID(string: "2E8C0003-2D91-5533-3117-59380A40AF8F")
 }
 
 class CentralViewController: UIViewController {

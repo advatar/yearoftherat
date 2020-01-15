@@ -10,10 +10,12 @@ import UIKit
 
 class DataHandleProtobuf: NSObject {
     func deviceInfoRequest() -> Data {
+        let diO = DevInfoOperation.read
         var diR = DeviceInfoRequest.init()
-        diR.reserved = 123;
+        diR.reserved = 123
+        diR.operation = diO
         let binaryData: Data = try! diR.serializedData()
-        return binaryData;
+        return binaryData
     }
 }
 
