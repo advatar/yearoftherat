@@ -22,7 +22,7 @@ class PeripheralViewController: UIViewController {
         
     let arrS = ["DEVICE CONFIG","HWOption","SET&READ","DATA SYNC","MESSAGE"];
     let bleCmds = [["Device Info","DEVICE CONFIG","Dev tmp"],
-                   ["HWOption","Schedule&Clock","Custom Option","Sedentary"],
+                   ["HWOption","Schedule&Clock","Custom Option","Sedentary","Motor"],
                    ["Date Time","More"],
                    ["Summary Data","Sysc More"],
                    ["Push String","Black List"]];
@@ -106,7 +106,7 @@ extension PeripheralViewController: UITableViewDataSource, UITableViewDelegate {
             self.selectCellAtTwo(indexRow: indexPath.row)
             break
         case 3:
-            self.selectCellAtThere(indexRow: indexPath.row)
+            self.selectCellAtThree(indexRow: indexPath.row)
             break
         case 4:
             self.selectCellAtFour(indexRow: indexPath.row)
@@ -151,7 +151,23 @@ extension PeripheralViewController: UITableViewDataSource, UITableViewDelegate {
             let vc = SedentaryViewController.init()
             self.navigationController?.pushViewController(vc, animated: true)
             break
+        case 4:
+            var mv:MotorVibrate = MotorVibrate.init()
+            mv.mode = MotorShakeWay.Light
+            mv.round = 3
+            let data = protobufIns.getMotorConf(vCnf: mv)
+            selectedPeripheral?.writeValue(data, for: writeCharacter!, type: CBCharacteristicWriteType.withoutResponse)
             
+            var mc:MotorConf = MotorConf.init()
+            var vc:VibrateCnf = VibrateCnf.init()
+            vc.mode = MotorShakeWay.Light
+            vc.type = VibrateType.sms
+            vc.round = 5
+            mc.conf = [vc]
+            let mData = protobufIns.getMotorConf(motorConf: mc)
+            selectedPeripheral?.writeValue(mData, for: writeCharacter!, type: CBCharacteristicWriteType.withoutResponse)
+
+            break
         default:
             break;
         }
@@ -171,12 +187,15 @@ extension PeripheralViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func selectCellAtThere(indexRow : Int) {
+    func selectCellAtThree(indexRow : Int) {
         switch (indexRow) {
         case 0:
+            let data = protobufIns.getRealTimeData()
+            selectedPeripheral?.writeValue(data, for: writeCharacter!, type: CBCharacteristicWriteType.withoutResponse)
             break;
         case 1:
             let vc = DataViewController.init()
+            vc.pVC = self
             self.navigationController?.pushViewController(vc, animated: true)
             break;
         case 2:
@@ -233,9 +252,7 @@ extension PeripheralViewController: CBPeripheralDelegate {
 			return
 		}
 		os_log("Discovered services %@", peripheral.services ?? [])
-        let arr = [BTConstants.sampleCharacteristicNotifyUUID,
-                   BTConstants.sampleCharacteristicWriteUUID]
-        peripheral.discoverCharacteristics(arr, for: service)
+        peripheral.discoverCharacteristics(nil, for: service)
 	}
 
 	func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -278,7 +295,23 @@ extension PeripheralViewController: CBPeripheralDelegate {
 }
 
 extension PeripheralViewController: BleProtobufDelegate {
+    func bleProtobufDidRecieveDataIndexTable(type: HisDataType, indexTable: HisIndexTable) {
+        print("bleProtobufDidRecieveDataIndexTable \(type) \(indexTable)")
+    }
+    
+    func bleProtobufDidRecieveData(type: HisDataType, hisData: HisData) {
+        print("bleProtobufDidRecieveData \(type) \(hisData)")
+    }
+    
+    func bleProtobufDidRecieveRealTimeData(rtData: RtHealth) {
+        print("bleProtobufDidRecieveRealTimeData \(rtData)")
+    }
+    
     func bleProtobufDidRecieveDeviceInfo(deviceInfo: DeviceInfoResponse) {
         print("bleProtobufDidRecieveDeviceInfo \(deviceInfo)")
+    }
+    
+    func bleProtobufDidRecieveBatteryInfo(batteryInfo: RtBattery) {
+        print("bleProtobufDidRecieveBatteryInfo \(batteryInfo)")
     }
 }

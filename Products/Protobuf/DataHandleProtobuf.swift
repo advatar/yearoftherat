@@ -16,6 +16,19 @@ enum RTDataSbscrbr {
     case easyCameraOff
 }
 
+struct MotorShakeWay {
+    static let Staccato:UInt32 = 4//断奏
+    static let Wave:UInt32     = 5//波浪
+    
+    static let Pitpat:UInt32   = 7//心跳
+    static let Radiate:UInt32  = 8//放射
+    
+    static let Light:UInt32    = 11//灯塔
+    static let Symphony:UInt32 = 12//交响乐
+    
+    static let Rapid:UInt32    = 15//快速
+};
+
 class DataHandleProtobuf: NSObject {
     //MARK: Request
     func deviceInfoRequest() -> Data {
@@ -208,7 +221,7 @@ class DataHandleProtobuf: NSObject {
         let binaryData: Data = try! mcN.serializedData()
         return binaryData
     }
-    
+    /**MotorVibrate.mode ==> MotorShakeWay*/
     func motorVibrateData(motorVibrate: MotorVibrate) -> Data {
         var mcN = MotorConfNotification.init()
         mcN.vibrate = motorVibrate

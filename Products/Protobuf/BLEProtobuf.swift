@@ -15,7 +15,19 @@ struct PROTOBUF_UUID_STR {
 }
 
 protocol BleProtobufDelegate: class {
+    //DEVICE
     func bleProtobufDidRecieveDeviceInfo(deviceInfo: DeviceInfoResponse)
+    func bleProtobufDidRecieveBatteryInfo(batteryInfo: RtBattery)
+
+    //MARK: DATA --
+    /*
+     steps: 1827
+     distance: 11176 (unit is 0.1 m)
+     calorie: 596 (unit is 0.1 kcal)
+     */
+    func bleProtobufDidRecieveRealTimeData(rtData: RtHealth)
+    func bleProtobufDidRecieveDataIndexTable(type: HisDataType, indexTable: HisIndexTable)
+    func bleProtobufDidRecieveData(type: HisDataType, hisData: HisData)
 }
 
 class BLEProtobuf: NSObject {
@@ -32,6 +44,114 @@ class BLEProtobuf: NSObject {
         return self.append(optCode: PB_Opt.DeviceInfo, payload: payload)
     }
     
+    func getBatteryInfo() -> Data {
+        let payload = dataHandle.realTimeDataSubscriber(rtDSB: .readBattery)
+        return self.append(optCode: PB_Opt.RealTimeData, payload: payload)
+    }
+    
+    func getUserConf(uConf: UserConf) -> Data {
+        let payload = dataHandle.peerInformationUserConf(gpbConf: uConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+       
+    func getBloodPresureConf(bpConf: BpCaliConf) -> Data {
+        let payload = dataHandle.peerInformationBpcaliConf(gpbConf: bpConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+
+    func getHrAlarmConf(ehrwpConf: HrAlarmConf) -> Data {
+        let payload = dataHandle.peerInformationHrAlarm(gpbConf: ehrwpConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+
+    func getGoalConf(goalConf: GoalConf) -> Data {
+        let payload = dataHandle.peerInformationGoalConf(gpbConf: goalConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+
+    func getDateTimeConf(date: DateTime) -> Data {
+        let payload = dataHandle.peerInformationDateTime(gpbConf: date)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+
+    func getGnssConf(gnssConf: GnssConf) -> Data {
+        let payload = dataHandle.peerInformationGnss(gpbConf: gnssConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+
+    func getAf24Conf(afConf: AfConf) -> Data {
+        let payload = dataHandle.peerInformationAfConf(gpbConf: afConf)
+        return self.append(optCode: PB_Opt.PeerInfo, payload: payload)
+    }
+    
+    func clearWeather() -> Data {
+        let payload = dataHandle.g24WeatherClear()
+        return self.append(optCode: PB_Opt.Weather, payload: payload)
+    }
+    
+    func getWeatherConfig(wgs: WeatherGroup) -> Data {
+        let payload = dataHandle.g24WeatherGroupData(weather: wgs)
+        return self.append(optCode: PB_Opt.Weather, payload: payload)
+    }
+    
+    func clearAlarmClock() -> Data {
+        let payload = dataHandle.alarmClcoksClearData()
+        return self.append(optCode: PB_Opt.AlarmClock, payload: payload)
+    }
+    
+    func getAlarmClockConfig(acConfs: AlarmGroup) -> Data {
+        let payload = dataHandle.alarmClcoksAddData(alarmClock: acConfs)
+        return self.append(optCode: PB_Opt.AlarmClock, payload: payload)
+    }
+    
+    func clearSedentary() -> Data {
+        let payload = dataHandle.sedentarinessClearData()
+        return self.append(optCode: PB_Opt.Sedentariness, payload: payload)
+    }
+    
+    func getSedentaryConfig(sedConfs: SedtGroup) -> Data {
+        let payload = dataHandle.sedentarinessSetData(sedt: sedConfs)
+        return self.append(optCode: PB_Opt.Sedentariness, payload: payload)
+    }
+    
+    func getDeviceConfig(hdConf: HealthDataConfig) -> Data {
+        var dcConf = DeviceConfNotification.init()
+        dcConf.heathConfig = hdConf
+        let payload = dataHandle.deviceConfSetData(dcSet: dcConf)
+        return self.append(optCode: PB_Opt.DeviceConfig, payload: payload)
+    }
+    
+    func getMotorConf(motorConf: MotorConf) -> Data {
+        let payload = dataHandle.motorConfData(motorConf: motorConf)
+        return self.append(optCode: PB_Opt.MotorConfig, payload: payload)
+    }
+    
+    func getMotorConf(vCnf: MotorVibrate) -> Data {
+        let payload = dataHandle.motorVibrateData(motorVibrate: vCnf)
+        return self.append(optCode: PB_Opt.MotorConfig, payload: payload)
+    }
+    
+    //MARK: sync data
+    func getRealTimeData() -> Data {
+        let payload = dataHandle.realTimeDataSubscriber(rtDSB: .readHealth)
+        return self.append(optCode: PB_Opt.RealTimeData, payload: payload)
+    }
+    
+    func getSyncDataIndexTable(type: HisDataType) -> Data {
+        var itSync = HisITSync.init()
+        itSync.type = type
+        let payload = dataHandle.historyDataIndexTable(idSync: itSync)
+        return self.append(optCode: PB_Opt.HistoryData, payload: payload)
+    }
+    
+    func getStartSync(type: HisDataType, blocks: Array<HisBlock>) -> Data {
+        var syncStart = HisStartSync.init()
+        syncStart.block = blocks
+        syncStart.type = type
+        let payload = dataHandle.historyDataStart(idSync: syncStart)
+        return self.append(optCode: PB_Opt.HistoryData, payload: payload)
+    }
+
     //MARK: receive data
     var _recvFinished = true
     var _recvData:Data = Data()
@@ -71,6 +191,34 @@ class BLEProtobuf: NSObject {
             } catch let error {
                 print(error)
             }
+        case PB_Opt.RealTimeData:
+            do {
+                let rtResponse = try RtNotification(serializedData: data)
+                if rtResponse.data == RtNotification.OneOf_Data.rtData(rtResponse.rtData) {
+                    let rtData:RtData = rtResponse.rtData
+                    if rtData.hasHealth {
+                        bpbDelegate?.bleProtobufDidRecieveRealTimeData(rtData: rtData.health)
+
+                    }
+                    if rtData.hasBattery {
+                        bpbDelegate?.bleProtobufDidRecieveBatteryInfo(batteryInfo: rtData.battery)
+                    }
+                }
+            } catch let error {
+                print(error)
+            }
+        case PB_Opt.HistoryData:
+            do {
+                let hisResponse = try HisNotification(serializedData: data)
+                if hisResponse.data == HisNotification.OneOf_Data.indexTable(hisResponse.indexTable) {
+                    bpbDelegate?.bleProtobufDidRecieveDataIndexTable(type: hisResponse.type, indexTable: hisResponse.indexTable)
+                }else if (hisResponse.data == HisNotification.OneOf_Data.hisData(hisResponse.hisData)) {
+                    bpbDelegate?.bleProtobufDidRecieveData(type: hisResponse.type, hisData: hisResponse.hisData)
+                }
+            } catch let error {
+                print(error)
+            }
+            
         default:
             break
         }

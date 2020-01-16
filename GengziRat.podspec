@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 s.name         = 'GengziRat'
 
-s.version      = "0.0.4"
+s.version      = "0.0.5"
 
 s.summary      = 'BLE SDK in Swift. Developed by iwown iOS developer team'
 

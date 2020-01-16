@@ -13,7 +13,7 @@ struct BTConstants {
 	// These are sample GATT service strings. Your accessory will need to include these services/characteristics in its GATT database
     static let sampleServiceUUID = CBUUID(string: PROTOBUF_UUID_STR.serviceUuid)
     static let sampleCharacteristicNotifyUUID = CBUUID(string: PROTOBUF_UUID_STR.notifyUuid)
-    static let sampleCharacteristicWriteUUID = CBUUID(string: PROTOBUF_UUID_STR.serviceUuid)
+    static let sampleCharacteristicWriteUUID = CBUUID(string: PROTOBUF_UUID_STR.writeUuid)
 }
 
 class CentralViewController: UIViewController {
