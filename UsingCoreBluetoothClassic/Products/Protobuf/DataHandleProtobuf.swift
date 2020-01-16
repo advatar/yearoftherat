@@ -178,6 +178,102 @@ class DataHandleProtobuf: NSObject {
         let binaryData: Data = try! aN.serializedData()
         return binaryData
     }
+    
+    func sedentarinessSetData(sedt: SedtGroup) -> Data {
+        var sN = SedtNotification.init()
+        sN.operation = SedtOperation.set
+        sN.group = sedt
+        let binaryData: Data = try! sN.serializedData()
+        return binaryData
+    }
+
+    func sedentarinessClearData() -> Data {
+        var sN = SedtNotification.init()
+        sN.operation = SedtOperation.clear
+        let binaryData: Data = try! sN.serializedData()
+        return binaryData
+    }
+
+    func deviceConfSetData(dcSet: DeviceConfNotification) -> Data {
+        var di:DeviceConfNotification = dcSet
+        di.hash = 123
+        let binaryData: Data = try! di.serializedData()
+        return binaryData
+    }
+    
+    func motorConfData(motorConf: MotorConf) -> Data {
+        var mcN = MotorConfNotification.init()
+        mcN.conf = motorConf
+        mcN.operation = MotorOperation.config
+        let binaryData: Data = try! mcN.serializedData()
+        return binaryData
+    }
+    
+    func motorVibrateData(motorVibrate: MotorVibrate) -> Data {
+        var mcN = MotorConfNotification.init()
+        mcN.vibrate = motorVibrate
+        mcN.operation = MotorOperation.vibrate
+        let binaryData: Data = try! mcN.serializedData()
+        return binaryData
+    }
+
+    func calendarAddData(cldar: CalendarGroup) -> Data {
+        var cN = CalendarNotification.init()
+        cN.operation = CalendarOperation.add
+        cN.group = cldar
+        let binaryData: Data = try! cN.serializedData()
+        return binaryData
+    }
+    
+    func calendarRemoveData(cldar: CalendarGroup) -> Data {
+        var cN = CalendarNotification.init()
+        cN.operation = CalendarOperation.remove;
+        cN.group = cldar
+        let binaryData: Data = try! cN.serializedData()
+        return binaryData
+    }
+
+    func calendarClearData() -> Data {
+        var cN = CalendarNotification.init()
+        cN.operation = CalendarOperation.clear;
+        let binaryData: Data = try! cN.serializedData()
+        return binaryData
+    }
+
+    //MARK: MODEl CONF
+    func tsFromGMT() -> Int {
+        let tz = NSTimeZone.system
+        let tsFromGMT = tz.secondsFromGMT()
+        return tsFromGMT
+    }
+    
+    func dateTimeConf(date: Date) -> DateTime {
+        let tsFromGMT = self.tsFromGMT()
+        let rtDate = date.addingTimeInterval(TimeInterval(tsFromGMT))
+        
+        var rt = RtTime.init()
+        rt.seconds = UInt32(rtDate.timeIntervalSince1970)
+        
+        var dt = DateTime.init()
+        let timeZone = tsFromGMT/3600
+        dt.dateTime = rt
+        dt.timeZone = Int32(timeZone)
+        return dt
+    }
+    
+    func messageNotifyConf(msgNotify: String) -> MsgNotify {
+        var mN = MsgNotify.init()
+        mN.type = .sms
+        mN.status = .added
+        mN.detail = msgNotify
+        return mN
+    }
+    
+    func messageFilterConfClear() -> MsgFilter {
+        var mf = MsgFilter.init()
+        mf.hash = 123
+        return mf
+    }
 }
 
 
