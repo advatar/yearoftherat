@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct PROTOBUF_UUID_STR {
+    static let serviceUuid:String = "2E8C0001-2D91-5533-3117-59380A40AF8F"
+    static let notifyUuid:String = "2E8C0002-2D91-5533-3117-59380A40AF8F"
+    static let writeUuid:String = "2E8C0003-2D91-5533-3117-59380A40AF8F"
+}
+
 protocol BleProtobufDelegate: class {
     func bleProtobufDidRecieveDeviceInfo(deviceInfo: DeviceInfoResponse)
 }

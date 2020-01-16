@@ -175,9 +175,8 @@
 				92C6ED94226FCB7900B6011C /* AppDelegate.swift */,
 				92C6ED96226FCB7900B6011C /* CentralViewController.swift */,
 				922FC56C2272832C0073879E /* PeripheralViewController.swift */,
-				D645E4CC23CC734300A76FA8 /* LogsViewController.swift */,
-				D645E4CA23CC732A00A76FA8 /* LogManager.swift */,
 				D652026323CD8F270050C6FD /* GlobalConst.swift */,
+				D652027C23CFFD390050C6FD /* Logs */,
 				D652024B23CD8E3D0050C6FD /* SubVCs */,
 				D652026623CDBA730050C6FD /* Products */,
 				92C6ED98226FCB7900B6011C /* Main.storyboard */,
@@ -278,6 +277,15 @@
 				D652026E23CDC5BD0050C6FD /* BLEProtobuf_f.swift */,
 			);
 			path = Protobuf;
+			sourceTree = "<group>";
+		};
+		D652027C23CFFD390050C6FD /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				D645E4CA23CC732A00A76FA8 /* LogManager.swift */,
+				D645E4CC23CC734300A76FA8 /* LogsViewController.swift */,
+			);
+			path = Logs;
 			sourceTree = "<group>";
 		};
 		D6550BE323BE11FE007462B0 /* pb_instance_swift */ = {
