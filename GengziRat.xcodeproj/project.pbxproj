@@ -1,0 +1,683 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B800A97930D6E6693C68DB5 /* Pods_GengziRat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */; };
+		D652028A23D005440050C6FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652028923D005440050C6FD /* AppDelegate.swift */; };
+		D652029123D005440050C6FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D652028F23D005440050C6FD /* Main.storyboard */; };
+		D652029323D005490050C6FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D652029223D005490050C6FD /* Assets.xcassets */; };
+		D652029623D005490050C6FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D652029423D005490050C6FD /* LaunchScreen.storyboard */; };
+		D65202C323D0060D0050C6FD /* dev_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652029F23D0060D0050C6FD /* dev_info.pb.swift */; };
+		D65202C423D0060D0050C6FD /* alarmclock.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A023D0060D0050C6FD /* alarmclock.pb.swift */; };
+		D65202C523D0060D0050C6FD /* custom_dial.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A123D0060D0050C6FD /* custom_dial.pb.swift */; };
+		D65202C623D0060D0050C6FD /* debug_conf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A223D0060D0050C6FD /* debug_conf.pb.swift */; };
+		D65202C723D0060D0050C6FD /* gsm_command.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A323D0060D0050C6FD /* gsm_command.pb.swift */; };
+		D65202C823D0060D0050C6FD /* weather.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A423D0060D0050C6FD /* weather.pb.swift */; };
+		D65202C923D0060D0050C6FD /* con_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A523D0060D0050C6FD /* con_params.pb.swift */; };
+		D65202CA23D0060D0050C6FD /* device_conf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A623D0060D0050C6FD /* device_conf.pb.swift */; };
+		D65202CB23D0060D0050C6FD /* his_health_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A723D0060D0050C6FD /* his_health_data.pb.swift */; };
+		D65202CC23D0060D0050C6FD /* om0_command.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A823D0060D0050C6FD /* om0_command.pb.swift */; };
+		D65202CD23D0060D0050C6FD /* his_swim_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202A923D0060D0050C6FD /* his_swim_data.pb.swift */; };
+		D65202CE23D0060D0050C6FD /* phone_book.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AA23D0060D0050C6FD /* phone_book.pb.swift */; };
+		D65202CF23D0060D0050C6FD /* sedentariness.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AB23D0060D0050C6FD /* sedentariness.pb.swift */; };
+		D65202D023D0060D0050C6FD /* his_spo2_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AC23D0060D0050C6FD /* his_spo2_data.pb.swift */; };
+		D65202D123D0060D0050C6FD /* his_ppg_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AD23D0060D0050C6FD /* his_ppg_data.pb.swift */; };
+		D65202D223D0060D0050C6FD /* his_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AE23D0060D0050C6FD /* his_data.pb.swift */; };
+		D65202D323D0060D0050C6FD /* data_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202AF23D0060D0050C6FD /* data_info.pb.swift */; };
+		D65202D423D0060D0050C6FD /* msg_notify.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B023D0060D0050C6FD /* msg_notify.pb.swift */; };
+		D65202D523D0060D0050C6FD /* his_ecg_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B123D0060D0050C6FD /* his_ecg_data.pb.swift */; };
+		D65202D623D0060D0050C6FD /* his_rri_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B223D0060D0050C6FD /* his_rri_data.pb.swift */; };
+		D65202D723D0060D0050C6FD /* factory_test.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B323D0060D0050C6FD /* factory_test.pb.swift */; };
+		D65202D823D0060D0050C6FD /* files_update.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B423D0060D0050C6FD /* files_update.pb.swift */; };
+		D65202D923D0060D0050C6FD /* realtime_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B523D0060D0050C6FD /* realtime_data.pb.swift */; };
+		D65202DA23D0060D0050C6FD /* peer_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B623D0060D0050C6FD /* peer_info.pb.swift */; };
+		D65202DB23D0060D0050C6FD /* his_gnss_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B723D0060D0050C6FD /* his_gnss_data.pb.swift */; };
+		D65202DC23D0060D0050C6FD /* calendar.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B823D0060D0050C6FD /* calendar.pb.swift */; };
+		D65202DD23D0060D0050C6FD /* airquality.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202B923D0060D0050C6FD /* airquality.pb.swift */; };
+		D65202DE23D0060D0050C6FD /* motor_conf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202BA23D0060D0050C6FD /* motor_conf.pb.swift */; };
+		D65202DF23D0060D0050C6FD /* his_medic_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202BB23D0060D0050C6FD /* his_medic_data.pb.swift */; };
+		D65202E023D0060D0050C6FD /* shbus_cmd.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202BC23D0060D0050C6FD /* shbus_cmd.pb.swift */; };
+		D65202E123D0060D0050C6FD /* c110_cmd.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202BD23D0060D0050C6FD /* c110_cmd.pb.swift */; };
+		D65202E223D0060D0050C6FD /* BLEProtobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202BF23D0060D0050C6FD /* BLEProtobuf.swift */; };
+		D65202E323D0060D0050C6FD /* BLEProtobuf_f.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202C023D0060D0050C6FD /* BLEProtobuf_f.swift */; };
+		D65202E423D0060D0050C6FD /* DataParseProtobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202C123D0060D0050C6FD /* DataParseProtobuf.swift */; };
+		D65202E523D0060D0050C6FD /* DataHandleProtobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202C223D0060D0050C6FD /* DataHandleProtobuf.swift */; };
+		D65202F823D006190050C6FD /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202E723D006190050C6FD /* LogsViewController.swift */; };
+		D65202F923D006190050C6FD /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202E823D006190050C6FD /* LogManager.swift */; };
+		D65202FA23D006190050C6FD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202EA23D006190050C6FD /* BaseViewController.swift */; };
+		D65202FB23D006190050C6FD /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202EC23D006190050C6FD /* DataViewController.swift */; };
+		D65202FC23D006190050C6FD /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202EE23D006190050C6FD /* MoreViewController.swift */; };
+		D65202FD23D006190050C6FD /* HWOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F023D006190050C6FD /* HWOptionController.swift */; };
+		D65202FE23D006190050C6FD /* CHOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F123D006190050C6FD /* CHOptionController.swift */; };
+		D65202FF23D006190050C6FD /* SedentaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F223D006190050C6FD /* SedentaryViewController.swift */; };
+		D652030023D006190050C6FD /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F323D006190050C6FD /* ClockViewController.swift */; };
+		D652030123D006190050C6FD /* BlackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F523D006190050C6FD /* BlackListViewController.swift */; };
+		D652030223D006190050C6FD /* DConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65202F723D006190050C6FD /* DConfigViewController.swift */; };
+		D652030623D006280050C6FD /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652030323D006280050C6FD /* PeripheralViewController.swift */; };
+		D652030723D006280050C6FD /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652030423D006280050C6FD /* GlobalConst.swift */; };
+		D652030823D006280050C6FD /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652030523D006280050C6FD /* CentralViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.debug.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.debug.xcconfig"; sourceTree = "<group>"; };
+		A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.release.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.release.xcconfig"; sourceTree = "<group>"; };
+		C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GengziRat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D652028623D005440050C6FD /* GengziRat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GengziRat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D652028923D005440050C6FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D652029023D005440050C6FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D652029223D005490050C6FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D652029523D005490050C6FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D652029723D005490050C6FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D652029F23D0060D0050C6FD /* dev_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dev_info.pb.swift; sourceTree = "<group>"; };
+		D65202A023D0060D0050C6FD /* alarmclock.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alarmclock.pb.swift; sourceTree = "<group>"; };
+		D65202A123D0060D0050C6FD /* custom_dial.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custom_dial.pb.swift; sourceTree = "<group>"; };
+		D65202A223D0060D0050C6FD /* debug_conf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = debug_conf.pb.swift; sourceTree = "<group>"; };
+		D65202A323D0060D0050C6FD /* gsm_command.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gsm_command.pb.swift; sourceTree = "<group>"; };
+		D65202A423D0060D0050C6FD /* weather.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weather.pb.swift; sourceTree = "<group>"; };
+		D65202A523D0060D0050C6FD /* con_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = con_params.pb.swift; sourceTree = "<group>"; };
+		D65202A623D0060D0050C6FD /* device_conf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = device_conf.pb.swift; sourceTree = "<group>"; };
+		D65202A723D0060D0050C6FD /* his_health_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_health_data.pb.swift; sourceTree = "<group>"; };
+		D65202A823D0060D0050C6FD /* om0_command.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = om0_command.pb.swift; sourceTree = "<group>"; };
+		D65202A923D0060D0050C6FD /* his_swim_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_swim_data.pb.swift; sourceTree = "<group>"; };
+		D65202AA23D0060D0050C6FD /* phone_book.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = phone_book.pb.swift; sourceTree = "<group>"; };
+		D65202AB23D0060D0050C6FD /* sedentariness.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sedentariness.pb.swift; sourceTree = "<group>"; };
+		D65202AC23D0060D0050C6FD /* his_spo2_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_spo2_data.pb.swift; sourceTree = "<group>"; };
+		D65202AD23D0060D0050C6FD /* his_ppg_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_ppg_data.pb.swift; sourceTree = "<group>"; };
+		D65202AE23D0060D0050C6FD /* his_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_data.pb.swift; sourceTree = "<group>"; };
+		D65202AF23D0060D0050C6FD /* data_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = data_info.pb.swift; sourceTree = "<group>"; };
+		D65202B023D0060D0050C6FD /* msg_notify.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msg_notify.pb.swift; sourceTree = "<group>"; };
+		D65202B123D0060D0050C6FD /* his_ecg_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_ecg_data.pb.swift; sourceTree = "<group>"; };
+		D65202B223D0060D0050C6FD /* his_rri_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_rri_data.pb.swift; sourceTree = "<group>"; };
+		D65202B323D0060D0050C6FD /* factory_test.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = factory_test.pb.swift; sourceTree = "<group>"; };
+		D65202B423D0060D0050C6FD /* files_update.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = files_update.pb.swift; sourceTree = "<group>"; };
+		D65202B523D0060D0050C6FD /* realtime_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = realtime_data.pb.swift; sourceTree = "<group>"; };
+		D65202B623D0060D0050C6FD /* peer_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peer_info.pb.swift; sourceTree = "<group>"; };
+		D65202B723D0060D0050C6FD /* his_gnss_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_gnss_data.pb.swift; sourceTree = "<group>"; };
+		D65202B823D0060D0050C6FD /* calendar.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calendar.pb.swift; sourceTree = "<group>"; };
+		D65202B923D0060D0050C6FD /* airquality.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = airquality.pb.swift; sourceTree = "<group>"; };
+		D65202BA23D0060D0050C6FD /* motor_conf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = motor_conf.pb.swift; sourceTree = "<group>"; };
+		D65202BB23D0060D0050C6FD /* his_medic_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = his_medic_data.pb.swift; sourceTree = "<group>"; };
+		D65202BC23D0060D0050C6FD /* shbus_cmd.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shbus_cmd.pb.swift; sourceTree = "<group>"; };
+		D65202BD23D0060D0050C6FD /* c110_cmd.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = c110_cmd.pb.swift; sourceTree = "<group>"; };
+		D65202BF23D0060D0050C6FD /* BLEProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEProtobuf.swift; sourceTree = "<group>"; };
+		D65202C023D0060D0050C6FD /* BLEProtobuf_f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEProtobuf_f.swift; sourceTree = "<group>"; };
+		D65202C123D0060D0050C6FD /* DataParseProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParseProtobuf.swift; sourceTree = "<group>"; };
+		D65202C223D0060D0050C6FD /* DataHandleProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandleProtobuf.swift; sourceTree = "<group>"; };
+		D65202E723D006190050C6FD /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		D65202E823D006190050C6FD /* LogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		D65202EA23D006190050C6FD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D65202EC23D006190050C6FD /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		D65202EE23D006190050C6FD /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		D65202F023D006190050C6FD /* HWOptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWOptionController.swift; sourceTree = "<group>"; };
+		D65202F123D006190050C6FD /* CHOptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHOptionController.swift; sourceTree = "<group>"; };
+		D65202F223D006190050C6FD /* SedentaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SedentaryViewController.swift; sourceTree = "<group>"; };
+		D65202F323D006190050C6FD /* ClockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
+		D65202F523D006190050C6FD /* BlackListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackListViewController.swift; sourceTree = "<group>"; };
+		D65202F723D006190050C6FD /* DConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DConfigViewController.swift; sourceTree = "<group>"; };
+		D652030323D006280050C6FD /* PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
+		D652030423D006280050C6FD /* GlobalConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
+		D652030523D006280050C6FD /* CentralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D652028323D005440050C6FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B800A97930D6E6693C68DB5 /* Pods_GengziRat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3DE223BF979196AFA13D35D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5FCD36281CC0C743B0631846 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */,
+				A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D652027D23D005440050C6FD = {
+			isa = PBXGroup;
+			children = (
+				D652028823D005440050C6FD /* GengziRat */,
+				D652028723D005440050C6FD /* Products */,
+				5FCD36281CC0C743B0631846 /* Pods */,
+				3DE223BF979196AFA13D35D9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D652028723D005440050C6FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D652028623D005440050C6FD /* GengziRat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D652028823D005440050C6FD /* GengziRat */ = {
+			isa = PBXGroup;
+			children = (
+				D652028923D005440050C6FD /* AppDelegate.swift */,
+				D652030523D006280050C6FD /* CentralViewController.swift */,
+				D652030423D006280050C6FD /* GlobalConst.swift */,
+				D652030323D006280050C6FD /* PeripheralViewController.swift */,
+				D65202E623D006190050C6FD /* Logs */,
+				D65202E923D006190050C6FD /* SubVCs */,
+				D652029D23D0060D0050C6FD /* Products */,
+				D652028F23D005440050C6FD /* Main.storyboard */,
+				D652029223D005490050C6FD /* Assets.xcassets */,
+				D652029423D005490050C6FD /* LaunchScreen.storyboard */,
+				D652029723D005490050C6FD /* Info.plist */,
+			);
+			path = GengziRat;
+			sourceTree = "<group>";
+		};
+		D652029D23D0060D0050C6FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D652029E23D0060D0050C6FD /* pb_instance_swift */,
+				D65202BE23D0060D0050C6FD /* Protobuf */,
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
+		D652029E23D0060D0050C6FD /* pb_instance_swift */ = {
+			isa = PBXGroup;
+			children = (
+				D652029F23D0060D0050C6FD /* dev_info.pb.swift */,
+				D65202A023D0060D0050C6FD /* alarmclock.pb.swift */,
+				D65202A123D0060D0050C6FD /* custom_dial.pb.swift */,
+				D65202A223D0060D0050C6FD /* debug_conf.pb.swift */,
+				D65202A323D0060D0050C6FD /* gsm_command.pb.swift */,
+				D65202A423D0060D0050C6FD /* weather.pb.swift */,
+				D65202A523D0060D0050C6FD /* con_params.pb.swift */,
+				D65202A623D0060D0050C6FD /* device_conf.pb.swift */,
+				D65202A723D0060D0050C6FD /* his_health_data.pb.swift */,
+				D65202A823D0060D0050C6FD /* om0_command.pb.swift */,
+				D65202A923D0060D0050C6FD /* his_swim_data.pb.swift */,
+				D65202AA23D0060D0050C6FD /* phone_book.pb.swift */,
+				D65202AB23D0060D0050C6FD /* sedentariness.pb.swift */,
+				D65202AC23D0060D0050C6FD /* his_spo2_data.pb.swift */,
+				D65202AD23D0060D0050C6FD /* his_ppg_data.pb.swift */,
+				D65202AE23D0060D0050C6FD /* his_data.pb.swift */,
+				D65202AF23D0060D0050C6FD /* data_info.pb.swift */,
+				D65202B023D0060D0050C6FD /* msg_notify.pb.swift */,
+				D65202B123D0060D0050C6FD /* his_ecg_data.pb.swift */,
+				D65202B223D0060D0050C6FD /* his_rri_data.pb.swift */,
+				D65202B323D0060D0050C6FD /* factory_test.pb.swift */,
+				D65202B423D0060D0050C6FD /* files_update.pb.swift */,
+				D65202B523D0060D0050C6FD /* realtime_data.pb.swift */,
+				D65202B623D0060D0050C6FD /* peer_info.pb.swift */,
+				D65202B723D0060D0050C6FD /* his_gnss_data.pb.swift */,
+				D65202B823D0060D0050C6FD /* calendar.pb.swift */,
+				D65202B923D0060D0050C6FD /* airquality.pb.swift */,
+				D65202BA23D0060D0050C6FD /* motor_conf.pb.swift */,
+				D65202BB23D0060D0050C6FD /* his_medic_data.pb.swift */,
+				D65202BC23D0060D0050C6FD /* shbus_cmd.pb.swift */,
+				D65202BD23D0060D0050C6FD /* c110_cmd.pb.swift */,
+			);
+			path = pb_instance_swift;
+			sourceTree = "<group>";
+		};
+		D65202BE23D0060D0050C6FD /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				D65202BF23D0060D0050C6FD /* BLEProtobuf.swift */,
+				D65202C023D0060D0050C6FD /* BLEProtobuf_f.swift */,
+				D65202C123D0060D0050C6FD /* DataParseProtobuf.swift */,
+				D65202C223D0060D0050C6FD /* DataHandleProtobuf.swift */,
+			);
+			path = Protobuf;
+			sourceTree = "<group>";
+		};
+		D65202E623D006190050C6FD /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				D65202E723D006190050C6FD /* LogsViewController.swift */,
+				D65202E823D006190050C6FD /* LogManager.swift */,
+			);
+			name = Logs;
+			path = ../../../Desktop/UsingCoreBluetoothClassic/CoreBluetoothClassicSample/Logs;
+			sourceTree = "<group>";
+		};
+		D65202E923D006190050C6FD /* SubVCs */ = {
+			isa = PBXGroup;
+			children = (
+				D65202EA23D006190050C6FD /* BaseViewController.swift */,
+				D65202EB23D006190050C6FD /* SyncData */,
+				D65202ED23D006190050C6FD /* DateTime */,
+				D65202EF23D006190050C6FD /* HWOption */,
+				D65202F423D006190050C6FD /* Message */,
+				D65202F623D006190050C6FD /* DeviceConfig */,
+			);
+			name = SubVCs;
+			path = ../../../Desktop/UsingCoreBluetoothClassic/CoreBluetoothClassicSample/SubVCs;
+			sourceTree = "<group>";
+		};
+		D65202EB23D006190050C6FD /* SyncData */ = {
+			isa = PBXGroup;
+			children = (
+				D65202EC23D006190050C6FD /* DataViewController.swift */,
+			);
+			path = SyncData;
+			sourceTree = "<group>";
+		};
+		D65202ED23D006190050C6FD /* DateTime */ = {
+			isa = PBXGroup;
+			children = (
+				D65202EE23D006190050C6FD /* MoreViewController.swift */,
+			);
+			path = DateTime;
+			sourceTree = "<group>";
+		};
+		D65202EF23D006190050C6FD /* HWOption */ = {
+			isa = PBXGroup;
+			children = (
+				D65202F023D006190050C6FD /* HWOptionController.swift */,
+				D65202F123D006190050C6FD /* CHOptionController.swift */,
+				D65202F223D006190050C6FD /* SedentaryViewController.swift */,
+				D65202F323D006190050C6FD /* ClockViewController.swift */,
+			);
+			path = HWOption;
+			sourceTree = "<group>";
+		};
+		D65202F423D006190050C6FD /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				D65202F523D006190050C6FD /* BlackListViewController.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		D65202F623D006190050C6FD /* DeviceConfig */ = {
+			isa = PBXGroup;
+			children = (
+				D65202F723D006190050C6FD /* DConfigViewController.swift */,
+			);
+			path = DeviceConfig;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D652028523D005440050C6FD /* GengziRat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D652029A23D005490050C6FD /* Build configuration list for PBXNativeTarget "GengziRat" */;
+			buildPhases = (
+				CD94A959AD6395E502E388AE /* [CP] Check Pods Manifest.lock */,
+				D652028223D005440050C6FD /* Sources */,
+				D652028323D005440050C6FD /* Frameworks */,
+				D652028423D005440050C6FD /* Resources */,
+				F1A79B1599B2D4FDCB415DE4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GengziRat;
+			productName = GengziRat;
+			productReference = D652028623D005440050C6FD /* GengziRat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D652027E23D005440050C6FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = iwown;
+				TargetAttributes = {
+					D652028523D005440050C6FD = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = D652028123D005440050C6FD /* Build configuration list for PBXProject "GengziRat" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D652027D23D005440050C6FD;
+			productRefGroup = D652028723D005440050C6FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D652028523D005440050C6FD /* GengziRat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D652028423D005440050C6FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D652029623D005490050C6FD /* LaunchScreen.storyboard in Resources */,
+				D652029323D005490050C6FD /* Assets.xcassets in Resources */,
+				D652029123D005440050C6FD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CD94A959AD6395E502E388AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GengziRat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1A79B1599B2D4FDCB415DE4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GengziRat/Pods-GengziRat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GengziRat/Pods-GengziRat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GengziRat/Pods-GengziRat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D652028223D005440050C6FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D652030623D006280050C6FD /* PeripheralViewController.swift in Sources */,
+				D65202D223D0060D0050C6FD /* his_data.pb.swift in Sources */,
+				D65202D823D0060D0050C6FD /* files_update.pb.swift in Sources */,
+				D65202D523D0060D0050C6FD /* his_ecg_data.pb.swift in Sources */,
+				D652030023D006190050C6FD /* ClockViewController.swift in Sources */,
+				D65202CA23D0060D0050C6FD /* device_conf.pb.swift in Sources */,
+				D65202C823D0060D0050C6FD /* weather.pb.swift in Sources */,
+				D65202E023D0060D0050C6FD /* shbus_cmd.pb.swift in Sources */,
+				D65202C623D0060D0050C6FD /* debug_conf.pb.swift in Sources */,
+				D652028A23D005440050C6FD /* AppDelegate.swift in Sources */,
+				D65202FA23D006190050C6FD /* BaseViewController.swift in Sources */,
+				D65202DB23D0060D0050C6FD /* his_gnss_data.pb.swift in Sources */,
+				D65202FD23D006190050C6FD /* HWOptionController.swift in Sources */,
+				D65202E423D0060D0050C6FD /* DataParseProtobuf.swift in Sources */,
+				D65202CD23D0060D0050C6FD /* his_swim_data.pb.swift in Sources */,
+				D65202CB23D0060D0050C6FD /* his_health_data.pb.swift in Sources */,
+				D652030123D006190050C6FD /* BlackListViewController.swift in Sources */,
+				D65202FE23D006190050C6FD /* CHOptionController.swift in Sources */,
+				D65202FF23D006190050C6FD /* SedentaryViewController.swift in Sources */,
+				D65202DD23D0060D0050C6FD /* airquality.pb.swift in Sources */,
+				D65202D123D0060D0050C6FD /* his_ppg_data.pb.swift in Sources */,
+				D65202CC23D0060D0050C6FD /* om0_command.pb.swift in Sources */,
+				D65202F923D006190050C6FD /* LogManager.swift in Sources */,
+				D65202E523D0060D0050C6FD /* DataHandleProtobuf.swift in Sources */,
+				D65202DE23D0060D0050C6FD /* motor_conf.pb.swift in Sources */,
+				D65202C323D0060D0050C6FD /* dev_info.pb.swift in Sources */,
+				D652030223D006190050C6FD /* DConfigViewController.swift in Sources */,
+				D65202DF23D0060D0050C6FD /* his_medic_data.pb.swift in Sources */,
+				D65202FB23D006190050C6FD /* DataViewController.swift in Sources */,
+				D65202D423D0060D0050C6FD /* msg_notify.pb.swift in Sources */,
+				D65202CF23D0060D0050C6FD /* sedentariness.pb.swift in Sources */,
+				D65202CE23D0060D0050C6FD /* phone_book.pb.swift in Sources */,
+				D65202C723D0060D0050C6FD /* gsm_command.pb.swift in Sources */,
+				D65202D623D0060D0050C6FD /* his_rri_data.pb.swift in Sources */,
+				D65202D323D0060D0050C6FD /* data_info.pb.swift in Sources */,
+				D65202C923D0060D0050C6FD /* con_params.pb.swift in Sources */,
+				D652030823D006280050C6FD /* CentralViewController.swift in Sources */,
+				D65202FC23D006190050C6FD /* MoreViewController.swift in Sources */,
+				D65202D923D0060D0050C6FD /* realtime_data.pb.swift in Sources */,
+				D652030723D006280050C6FD /* GlobalConst.swift in Sources */,
+				D65202DC23D0060D0050C6FD /* calendar.pb.swift in Sources */,
+				D65202E223D0060D0050C6FD /* BLEProtobuf.swift in Sources */,
+				D65202E123D0060D0050C6FD /* c110_cmd.pb.swift in Sources */,
+				D65202C423D0060D0050C6FD /* alarmclock.pb.swift in Sources */,
+				D65202DA23D0060D0050C6FD /* peer_info.pb.swift in Sources */,
+				D65202C523D0060D0050C6FD /* custom_dial.pb.swift in Sources */,
+				D65202D023D0060D0050C6FD /* his_spo2_data.pb.swift in Sources */,
+				D65202D723D0060D0050C6FD /* factory_test.pb.swift in Sources */,
+				D65202E323D0060D0050C6FD /* BLEProtobuf_f.swift in Sources */,
+				D65202F823D006190050C6FD /* LogsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D652028F23D005440050C6FD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D652029023D005440050C6FD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D652029423D005490050C6FD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D652029523D005490050C6FD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D652029823D005490050C6FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D652029923D005490050C6FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D652029B23D005490050C6FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L855ZMKEYR;
+				INFOPLIST_FILE = GengziRat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iwown.GengziRat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D652029C23D005490050C6FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L855ZMKEYR;
+				INFOPLIST_FILE = GengziRat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iwown.GengziRat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D652028123D005440050C6FD /* Build configuration list for PBXProject "GengziRat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D652029823D005490050C6FD /* Debug */,
+				D652029923D005490050C6FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D652029A23D005490050C6FD /* Build configuration list for PBXNativeTarget "GengziRat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D652029B23D005490050C6FD /* Debug */,
+				D652029C23D005490050C6FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D652027E23D005440050C6FD /* Project object */;
+}
