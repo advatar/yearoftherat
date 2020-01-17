@@ -30,7 +30,7 @@ protocol BleProtobufDelegate: class {
     func bleProtobufDidRecieveData(type: HisDataType, hisData: HisData)
 }
 
-class BLEProtobuf: NSObject {
+public class BLEProtobuf: NSObject {
     
     let dataHandle:DataHandleProtobuf = DataHandleProtobuf()
     let dataParser:DataParseProtobuf = DataParseProtobuf()
