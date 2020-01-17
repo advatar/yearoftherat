@@ -152,18 +152,12 @@ extension PeripheralViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
             break
         case 4:
-            var mv:MotorVibrate = MotorVibrate.init()
-            mv.mode = MotorShakeWay.Light
-            mv.round = 3
+            let mv:PB_MotorVibrate = PB_MotorVibrate(mode: MotorShakeWay.Light, round: 3)
             let data = protobufIns.getMotorConf(vCnf: mv)
             selectedPeripheral?.writeValue(data, for: writeCharacter!, type: CBCharacteristicWriteType.withoutResponse)
             
-            var mc:MotorConf = MotorConf.init()
-            var vc:VibrateCnf = VibrateCnf.init()
-            vc.mode = MotorShakeWay.Light
-            vc.type = VibrateType.sms
-            vc.round = 5
-            mc.conf = [vc]
+            let vc:PB_VibrateCnf = PB_VibrateCnf.init(type: PB_VibrateType.sms, mode: MotorShakeWay.Light, round: 5)
+            let mc:PB_MotorConf = PB_MotorConf.init(conf: [vc])
             let mData = protobufIns.getMotorConf(motorConf: mc)
             selectedPeripheral?.writeValue(mData, for: writeCharacter!, type: CBCharacteristicWriteType.withoutResponse)
 
@@ -295,23 +289,23 @@ extension PeripheralViewController: CBPeripheralDelegate {
 }
 
 extension PeripheralViewController: BleProtobufDelegate {
-    func bleProtobufDidRecieveDataIndexTable(type: HisDataType, indexTable: HisIndexTable) {
-        print("bleProtobufDidRecieveDataIndexTable \(type) \(indexTable)")
-    }
-    
-    func bleProtobufDidRecieveData(type: HisDataType, hisData: HisData) {
-        print("bleProtobufDidRecieveData \(type) \(hisData)")
-    }
-    
-    func bleProtobufDidRecieveRealTimeData(rtData: RtHealth) {
-        print("bleProtobufDidRecieveRealTimeData \(rtData)")
-    }
-    
-    func bleProtobufDidRecieveDeviceInfo(deviceInfo: DeviceInfoResponse) {
+    func bleProtobufDidRecieveDeviceInfo(deviceInfo: PB_DeivceInfo) {
         print("bleProtobufDidRecieveDeviceInfo \(deviceInfo)")
     }
     
-    func bleProtobufDidRecieveBatteryInfo(batteryInfo: RtBattery) {
+    func bleProtobufDidRecieveBatteryInfo(batteryInfo: PB_BatteryInfo) {
         print("bleProtobufDidRecieveBatteryInfo \(batteryInfo)")
+    }
+    
+    func bleProtobufDidRecieveRealTimeData(rtData: PB_HealthSummary) {
+        print("bleProtobufDidRecieveRealTimeData \(rtData)")
+    }
+    
+    func bleProtobufDidRecieveDataIndexTable(type: PB_HisDatatype, indexTables: [PB_HisIndexTable]) {
+        print("bleProtobufDidRecieveDataIndexTable \(type) \(indexTables)")
+    }
+    
+    func bleProtobufDidRecieveData(type: PB_HisDatatype, hisData: PB_HisData) {
+        print("bleProtobufDidRecieveData \(type) \(hisData)")
     }
 }

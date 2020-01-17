@@ -15,7 +15,7 @@ class DataViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let data = pVC?.protobufIns.getSyncDataIndexTable(type: HisDataType.healthData) else {
+        guard let data = pVC?.protobufIns.getSyncDataIndexTable(type: PB_HisDatatype.healthData) else {
             return
         }
         let writeCharacter:CBCharacteristic = pVC!.writeCharacter!
@@ -89,16 +89,14 @@ extension DataViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = pVC!.protobufIns.getStartSync(type: HisDataType.healthData, blocks: self.getHisBlockArray())
+        let data = pVC!.protobufIns.getStartSync(type: PB_HisDatatype.healthData, blocks: self.getHisBlockArray())
         let writeCharacter:CBCharacteristic = pVC!.writeCharacter!
         pVC?.selectedPeripheral?.writeValue(data, for: writeCharacter, type: CBCharacteristicWriteType.withoutResponse)
 
     }
     
-    func getHisBlockArray() -> Array<HisBlock> {
-        var hisBk = HisBlock.init()
-        hisBk.startSeq = 0
-        hisBk.endSeq = 100
+    func getHisBlockArray() -> Array<PB_HisBlock> {
+        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 100)
         return [hisBk]
     }
 }

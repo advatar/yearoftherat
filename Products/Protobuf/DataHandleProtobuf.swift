@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RTDataSbscrbr {
+public enum RTDataSbscrbr {
     case readTime
     case readBattery
     case readHealth
@@ -16,7 +16,7 @@ enum RTDataSbscrbr {
     case easyCameraOff
 }
 
-struct MotorShakeWay {
+public struct MotorShakeWay {
     static let Staccato:UInt32 = 4//断奏
     static let Wave:UInt32     = 5//波浪
     
@@ -81,12 +81,11 @@ class DataHandleProtobuf: NSObject {
         return binaryData
     }
     
-    
     //MARK: Information
     func peerInformationDateTime(gpbConf: DateTime) -> Data {
         var piN = PeerInfoNotification.init()
-        piN.dateTime = gpbConf;
-        piN.peerType = PeerInfoNotification.PeerType.appIos;
+        piN.dateTime = gpbConf
+        piN.peerType = PeerInfoNotification.PeerType.appIos
         let binaryData: Data = try! piN.serializedData()
         return binaryData
     }
@@ -254,14 +253,14 @@ class DataHandleProtobuf: NSObject {
     }
 
     //MARK: MODEl CONF
-    func tsFromGMT() -> Int {
+    static func tsFromGMT() -> Int {
         let tz = NSTimeZone.system
         let tsFromGMT = tz.secondsFromGMT()
         return tsFromGMT
     }
     
     func dateTimeConf(date: Date) -> DateTime {
-        let tsFromGMT = self.tsFromGMT()
+        let tsFromGMT = DataHandleProtobuf.tsFromGMT()
         let rtDate = date.addingTimeInterval(TimeInterval(tsFromGMT))
         
         var rt = RtTime.init()
