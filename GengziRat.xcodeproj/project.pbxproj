@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1B800A97930D6E6693C68DB5 /* Pods_GengziRat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */; };
+		D61177D32423996C00EBA0B5 /* BLEIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D22423996C00EBA0B5 /* BLEIwown.swift */; };
+		D61177D5242458CF00EBA0B5 /* DataHandleIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D4242458CF00EBA0B5 /* DataHandleIwown.swift */; };
+		D61177D72424592400EBA0B5 /* BLEIwown_e.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D62424592400EBA0B5 /* BLEIwown_e.swift */; };
+		D61177D924246FF100EBA0B5 /* DataHelperIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D824246FF100EBA0B5 /* DataHelperIwown.swift */; };
+		D61177DB242491BF00EBA0B5 /* DataParseIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177DA242491BF00EBA0B5 /* DataParseIwown.swift */; };
 		D652028A23D005440050C6FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652028923D005440050C6FD /* AppDelegate.swift */; };
 		D652029123D005440050C6FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D652028F23D005440050C6FD /* Main.storyboard */; };
 		D652029323D005490050C6FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D652029223D005490050C6FD /* Assets.xcassets */; };
@@ -67,6 +72,11 @@
 		60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.debug.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.debug.xcconfig"; sourceTree = "<group>"; };
 		A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.release.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.release.xcconfig"; sourceTree = "<group>"; };
 		C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GengziRat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D61177D22423996C00EBA0B5 /* BLEIwown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEIwown.swift; sourceTree = "<group>"; };
+		D61177D4242458CF00EBA0B5 /* DataHandleIwown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandleIwown.swift; sourceTree = "<group>"; };
+		D61177D62424592400EBA0B5 /* BLEIwown_e.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEIwown_e.swift; sourceTree = "<group>"; };
+		D61177D824246FF100EBA0B5 /* DataHelperIwown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelperIwown.swift; sourceTree = "<group>"; };
+		D61177DA242491BF00EBA0B5 /* DataParseIwown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParseIwown.swift; sourceTree = "<group>"; };
 		D652028623D005440050C6FD /* GengziRat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GengziRat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D652028923D005440050C6FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D652029023D005440050C6FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +161,18 @@
 				A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D61177D1242398FE00EBA0B5 /* Classic */ = {
+			isa = PBXGroup;
+			children = (
+				D61177D22423996C00EBA0B5 /* BLEIwown.swift */,
+				D61177D62424592400EBA0B5 /* BLEIwown_e.swift */,
+				D61177DA242491BF00EBA0B5 /* DataParseIwown.swift */,
+				D61177D4242458CF00EBA0B5 /* DataHandleIwown.swift */,
+				D61177D824246FF100EBA0B5 /* DataHelperIwown.swift */,
+			);
+			path = Classic;
 			sourceTree = "<group>";
 		};
 		D652027D23D005440050C6FD = {
@@ -257,7 +279,7 @@
 		D652036F23D0316B0050C6FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D652037023D0316B0050C6FD /* pb_instance_swift */,
+				D61177D1242398FE00EBA0B5 /* Classic */,
 				D652039023D0316B0050C6FD /* Protobuf */,
 			);
 			path = Products;
@@ -304,6 +326,7 @@
 		D652039023D0316B0050C6FD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
+				D652037023D0316B0050C6FD /* pb_instance_swift */,
 				D652039123D0316B0050C6FD /* BLEProtobuf.swift */,
 				D652039223D0316B0050C6FD /* BLEProtobuf_f.swift */,
 				D652039323D0316B0050C6FD /* DataParseProtobuf.swift */,
@@ -435,11 +458,14 @@
 				D65203AA23D0316B0050C6FD /* files_update.pb.swift in Sources */,
 				D652039623D0316B0050C6FD /* alarmclock.pb.swift in Sources */,
 				D65203A623D0316B0050C6FD /* msg_notify.pb.swift in Sources */,
+				D61177D72424592400EBA0B5 /* BLEIwown_e.swift in Sources */,
 				D65203A223D0316B0050C6FD /* his_spo2_data.pb.swift in Sources */,
 				D65203A123D0316B0050C6FD /* sedentariness.pb.swift in Sources */,
+				D61177D5242458CF00EBA0B5 /* DataHandleIwown.swift in Sources */,
 				D652039D23D0316B0050C6FD /* his_health_data.pb.swift in Sources */,
 				D652036B23D031600050C6FD /* SedentaryViewController.swift in Sources */,
 				D65203B223D0316B0050C6FD /* shbus_cmd.pb.swift in Sources */,
+				D61177DB242491BF00EBA0B5 /* DataParseIwown.swift in Sources */,
 				D65203A923D0316B0050C6FD /* factory_test.pb.swift in Sources */,
 				D65203A823D0316B0050C6FD /* his_rri_data.pb.swift in Sources */,
 				D65203AE23D0316B0050C6FD /* calendar.pb.swift in Sources */,
@@ -472,6 +498,8 @@
 				D65203B123D0316B0050C6FD /* his_medic_data.pb.swift in Sources */,
 				D652030823D006280050C6FD /* CentralViewController.swift in Sources */,
 				D652039E23D0316B0050C6FD /* om0_command.pb.swift in Sources */,
+				D61177D32423996C00EBA0B5 /* BLEIwown.swift in Sources */,
+				D61177D924246FF100EBA0B5 /* DataHelperIwown.swift in Sources */,
 				D65203A323D0316B0050C6FD /* his_ppg_data.pb.swift in Sources */,
 				D652036923D031600050C6FD /* HWOptionController.swift in Sources */,
 				D65203A023D0316B0050C6FD /* phone_book.pb.swift in Sources */,

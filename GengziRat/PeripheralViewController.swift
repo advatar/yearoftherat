@@ -15,8 +15,10 @@ class PeripheralViewController: UIViewController {
     var selectedPeripheral: CBPeripheral?
     var readCharacter: CBCharacteristic?
     var writeCharacter: CBCharacteristic?
+    var protocType: BTCProtoType = BTCProtoType.nullDefault
     
     let protobufIns = BLEProtobuf.init()
+    let iwownIns = BLEIwown.init()
 
 	private var peripheralConnectedState = false
         
@@ -34,7 +36,7 @@ class PeripheralViewController: UIViewController {
         pTableView.reloadData()
         
         self.initUI()
-        protobufIns.bpbDelegate = self 
+        protobufIns.bpbDelegate = self
         
         // Set peripheral delegate
         selectedPeripheral?.delegate = self
@@ -222,7 +224,8 @@ extension PeripheralViewController: CBCentralManagerDelegate {
 	func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
 		os_log("peripheral: %@ connected", peripheral)
         self.title = peripheral.name
-        let arr = [BTConstants.sampleServiceUUID]
+        let arr = [BTCProto.protobuf.sampleServiceUUID!,
+                   BTCProto.iwown.sampleServiceUUID!]
         peripheral.discoverServices(arr)
 	}
 
@@ -245,7 +248,13 @@ extension PeripheralViewController: CBPeripheralDelegate {
 			}
 			return
 		}
-		os_log("Discovered services %@", peripheral.services ?? [])
+        for scSer in peripheral.services ?? [] {
+            let btcI = BTCInsProtoc.instanceProtocol(uuidStr: scSer.uuid.uuidString)
+            if btcI != BTCProtoType.nullDefault {
+                protocType = btcI
+            }
+        }
+        os_log("Discovered services %@", peripheral.services ?? [])
         peripheral.discoverCharacteristics(nil, for: service)
 	}
 
@@ -259,9 +268,13 @@ extension PeripheralViewController: CBPeripheralDelegate {
         os_log("Discovered characteristics %@", characteristics)
         for character in characteristics {
             switch character.uuid {
-            case BTConstants.sampleCharacteristicNotifyUUID:
+            case BTCProto.protobuf.sampleCharacteristicNotifyUUID:
                 peripheral.setNotifyValue(true, for: character)
-            case BTConstants.sampleCharacteristicWriteUUID:
+            case BTCProto.protobuf.sampleCharacteristicWriteUUID:
+                writeCharacter = character
+            case BTCProto.iwown.sampleCharacteristicNotifyUUID:
+                peripheral.setNotifyValue(true, for: character)
+            case BTCProto.iwown.sampleCharacteristicWriteUUID:
                 writeCharacter = character
             default:
                 break

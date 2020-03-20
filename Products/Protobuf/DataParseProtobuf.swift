@@ -287,8 +287,6 @@ public struct PB_MotorVibrate {
     }
 }
 
-
-
 class DataParseProtobuf: NSObject {
 
 }

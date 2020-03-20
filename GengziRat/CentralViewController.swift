@@ -10,10 +10,36 @@ import UIKit
 import os.log
 
 struct BTConstants {
-	// These are sample GATT service strings. Your accessory will need to include these services/characteristics in its GATT database
-    static let sampleServiceUUID = CBUUID(string: PROTOBUF_UUID_STR.serviceUuid)
-    static let sampleCharacteristicNotifyUUID = CBUUID(string: PROTOBUF_UUID_STR.notifyUuid)
-    static let sampleCharacteristicWriteUUID = CBUUID(string: PROTOBUF_UUID_STR.writeUuid)
+    // These are sample GATT service strings. Your accessory will need to include these services/characteristics in its GATT database
+    var sampleServiceUUID:CBUUID?
+    var sampleCharacteristicNotifyUUID:CBUUID?
+    var sampleCharacteristicWriteUUID:CBUUID?
+}
+
+struct BTCProto {
+    static let protobuf = BTConstants.init(sampleServiceUUID: CBUUID(string: PROTOBUF_UUID_STR.serviceUuid), sampleCharacteristicNotifyUUID: CBUUID(string: PROTOBUF_UUID_STR.notifyUuid), sampleCharacteristicWriteUUID: CBUUID(string: PROTOBUF_UUID_STR.writeUuid))
+    static let iwown = BTConstants.init(sampleServiceUUID: CBUUID(string: IWOWN_UUID_STR.serviceUuid), sampleCharacteristicNotifyUUID: CBUUID(string: IWOWN_UUID_STR.notifyUuid), sampleCharacteristicWriteUUID: CBUUID(string: IWOWN_UUID_STR.writeUuid))
+    
+    static let nullDefault = BTConstants.init()
+}
+
+public enum BTCProtoType {
+    case nullDefault
+    case protobuf
+    case iwown
+}
+
+struct BTCInsProtoc {
+    static func instanceProtocol(uuidStr: String) -> BTCProtoType {
+        switch uuidStr {
+        case BTCProto.iwown.sampleServiceUUID!.uuidString:
+            return BTCProtoType.iwown
+        case BTCProto.protobuf.sampleServiceUUID!.uuidString:
+            return BTCProtoType.protobuf
+        default:
+            return BTCProtoType.nullDefault
+        }
+    }
 }
 
 class CentralViewController: UIViewController {
@@ -55,7 +81,7 @@ class CentralViewController: UIViewController {
     }
     
     @objc func scanDevice() -> Void {
-        let matchingOptions = [CBConnectionEventMatchingOption.serviceUUIDs: [BTConstants.sampleServiceUUID]]
+        let matchingOptions = [CBConnectionEventMatchingOption.serviceUUIDs: [BTCProto.protobuf.sampleServiceUUID]]
         cbManager.registerForConnectionEvents(options: matchingOptions)
         cbManager.scanForPeripherals(withServices: nil, options: nil)
     }
