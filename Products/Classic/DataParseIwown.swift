@@ -59,7 +59,7 @@ class DataParseIwown: NSObject {
     
     public var biDelegate:BleIwownDelegate?
     
-    //MARK: @Out
+    //MARK: @Device
     func payloadParserDeviceInfo(payload: Data) -> Void {
         let modelData = payload.subdata(in: 2..<6)
         let verData = payload.subdata(in: 8..<12)
@@ -91,6 +91,23 @@ class DataParseIwown: NSObject {
         biDelegate?.bleIwownDidRecieveBatteryInfo(batteryInfo: battery)
     }
     
+    //MARK: @Config
+    func payloadParserSportList(paylod: Data) -> Void {
+        if paylod.count == 0 {
+            return
+        }
+        
+        var arr:Array = Array<IW_Sport_Uint_Code>()
+          
+        for i in 1..<paylod.count {
+            let sportType = paylod[i]
+            arr.append(IW_Sport_Uint_Code(sportType))
+        }
+        biDelegate?.bleIwownDidRecieveSupportSportList(arr: arr)
+    }
+    
+          
+    //MARK: @DataLog
     func payloadParserCurSportData(payload: Data) -> Void {
         if (payload.count < 5) {
             print("DATA LENGTH IS TOO SHORT !!! [payloadParserCurSportData]")

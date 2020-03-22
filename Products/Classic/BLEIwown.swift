@@ -19,6 +19,9 @@ public protocol BleIwownDelegate: class {
     func bleIwownDidRecieveDeviceInfo(deviceInfo: IW_DeivceInfo)
     func bleIwownDidRecieveBatteryInfo(batteryInfo: IW_BatteryInfo)
 
+    //CONFIG
+    func bleIwownDidRecieveSupportSportList(arr: Array<IW_Sport_Uint_Code>)
+    
    /*
     steps: 1827
     distance: 11176 (unit is 0.1 m)
@@ -40,25 +43,82 @@ class BLEIwown: NSObject {
     }
     
     //MARK: @Public
-    //MARK: cmds
+    //MARK: cmds-Device
+    //Read device infomation. @See bleIwownDidRecieveDeviceInfo().
     public func getDeviceInfo() -> Data {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_GET_INFORMATION, sData: nil).first!
     }
-    
+    //Read battery infomation. @See bleIwownDidRecieveBatteryInfo().
     public func getBattery() -> Data {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_GET_BATTERY, sData: nil).first!
     }
     
+    //Reset cmds
+    public func reSetDevice() -> Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_RESET, sData: nil).first!
+    }
+    
+    //Upgrade cmds, let band entry upgrade mode
+    public func deviceUpgrade() -> Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_UPDATE, sData: nil).first!
+    }
+    
+    //Read Ancs Status, Stop by stopAncsStatus()
+    public func getAncsStatus() ->Data {
+        let pbytes:[UInt8] = [0x01]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_REQ_REBOND, sData: data).first!
+    }
+    
+    public func stopAncsStatus() ->Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_REQ_REBOND, sData: data).first!
+    }
+    
+    //Clear Bind clue
+    public func debindFromSystem() ->Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_DO_REBOND, sData: nil).first!
+    }
+
+    public func getTotalDataInfo() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_SYNCDATA, sData: data).first!
+    }
+    
+    //MARK: cmds-Config
+    public func readSupportSports() ->Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.CONFIG, cmd: IV_CMD_ID.CONFIG_GET_SPORT_TARGET, sData: nil).first!
+    }
+        
     public func syscTime(date : Date) -> Data {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.CONFIG, cmd: IV_CMD_ID.CONFIG_SET_TIME, sData: dataHelper.getDataInTime(date: date)).first!
     }
     
+    //MARK: cmds-DataLog
     public func syncDataSummary29() -> Data {
-        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_CUR_SPORTDATA, sData: nil).first!
+        let pbytes:[UInt8] = [0x01]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_CUR_SPORTDATA, sData: data).first!
+    }
+    
+    public func stopDataSummart29() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_CUR_SPORTDATA, sData: data).first!
     }
     
     public func syncDataDetail28() -> Data {
-        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_SPORTDATA, sData: nil).first!
+        let pbytes:[UInt8] = [0x01]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_SPORTDATA, sData: data).first!
+    }
+    
+    public func stopDataDetail28() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_SPORTDATA, sData: data).first!
     }
     
     //MARK: receive data
@@ -109,15 +169,15 @@ class BLEIwown: NSObject {
     }
     
     func dataCheck(data: Data) -> Void {
-            if data.count < LENGTH_OF_HEADER {
-                print("DATA LENGTH ERROR【 \(data) 】")
-                return
-            }
-        
-            let ptCode = UInt8(data[3])
-            let payloadData = data.subdata(in: LENGTH_OF_HEADER..<data.count)
-            
-            dataParser.parseDataInIwown(ptCode: ptCode, payload: payloadData)
+        if data.count < LENGTH_OF_HEADER {
+            print("DATA LENGTH ERROR【 \(data) 】")
+            return
         }
+    
+        let ptCode = UInt8(data[3])
+        let payloadData = data.subdata(in: LENGTH_OF_HEADER..<data.count)
+        
+        dataParser.parseDataInIwown(ptCode: ptCode, payload: payloadData)
+    }
 
 }
