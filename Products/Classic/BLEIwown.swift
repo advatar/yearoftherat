@@ -80,7 +80,23 @@ class BLEIwown: NSObject {
     public func debindFromSystem() ->Data {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_DO_REBOND, sData: nil).first!
     }
-
+    
+    public func getDndModeWrite(dndModel: IW_DndMode) ->Data {
+        let data = dataHandle.getDndModeSet(dndMode: dndModel)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_DND_MODE, sData: data).first!
+    }
+    
+    public func getDndModeRead() ->Data {
+        let pbytes:[UInt8] = [0x01]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_DND_MODE, sData: data).first!
+    }
+    
+    public func getWeatherWrite(weather: IW_Weather) ->Data {
+        let data = dataHandle.getWeatherSet(weather: weather)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_WEATHER, sData: data).first!
+    }
+ 
     public func getTotalDataInfo() -> Data {
         let pbytes:[UInt8] = [0x00]
         let data = Data(pbytes)

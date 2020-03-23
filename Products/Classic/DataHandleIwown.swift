@@ -6,6 +6,21 @@
 //  Copyright © 2020 iwown. All rights reserved.
 //
 
+public struct IW_DndMode {
+    public var dndType:UInt8
+    public var startHour:UInt8
+    public var startMinute:UInt8
+    public var endHour:UInt8
+    public var endMinute:UInt8
+}
+
+public struct IW_Weather {
+    public var temp:Int16
+    public var unit:UInt8
+    public var type:UInt8
+    public var pm:Int16
+}
+
 let DATA_LEN:Int = 40
 
 import UIKit
@@ -45,5 +60,30 @@ class DataHandleIwown: NSObject {
         }
 
         return mArray
+    }
+    
+    func getDndModeSet(dndMode: IW_DndMode) -> Data {
+        var pbytes:[UInt8] = [0x00,0,0,0,0,0]
+        pbytes[1] = dndMode.dndType
+        pbytes[2] = dndMode.startHour
+        pbytes[3] = dndMode.startMinute
+        pbytes[4] = dndMode.endHour
+        pbytes[5] = dndMode.endMinute
+
+        let data = Data(pbytes)
+        return data        
+    }
+    
+    func getWeatherSet(weather: IW_Weather) -> Data {
+        var pbytes:[UInt8] = [0,0,0,0,0,0]
+        pbytes[0] = UInt8(weather.temp & 0xff)
+        pbytes[1] = UInt8((weather.temp>>8) & 0xff)
+        pbytes[2] = weather.unit
+        pbytes[3] = weather.type
+        pbytes[4] = UInt8(weather.pm%0x100)
+        pbytes[5] = UInt8(weather.pm/0x100)
+
+        let data = Data(pbytes)
+        return data
     }
 }
