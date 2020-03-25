@@ -18,6 +18,14 @@ public struct IW_BatteryInfo {
     public var level:UInt8
 }
 
+public struct IW_ManuFactoryDate {
+    public var str:String
+}
+
+public struct IW_FactoryConf {
+    public var str:String
+}
+
 public struct IW_HealthSport {
     public var calorie:UInt32
     public var step:UInt32
@@ -91,6 +99,19 @@ class DataParseIwown: NSObject {
         biDelegate?.bleIwownDidRecieveBatteryInfo(batteryInfo: battery)
     }
     
+    func payloadParserManufactureDate(payload: Data) -> Void {
+        let newStr = String(data: payload, encoding: String.Encoding.utf8)
+        let str = String.init(format: "23ff0b%02lx%@", payload.count,newStr!)
+        let mfDate = IW_ManuFactoryDate(str: str)
+        biDelegate?.bleIwownDidRecieveManuFactoryDate(str: mfDate)
+    }
+    
+    func payloadParserfactureConf(payload: Data) -> Void {
+        let newStr = String(data: payload, encoding: String.Encoding.utf8)
+        let str = String.init(format: "23ff0c%02lx%@", payload.count,newStr!)
+        let fc:IW_FactoryConf = IW_FactoryConf(str: str)
+        biDelegate?.bleIwownDidRecieveFactoryConf(str: fc)
+    }
     //MARK: @Config
     func payloadParserSportList(paylod: Data) -> Void {
         if paylod.count == 0 {
@@ -106,7 +127,6 @@ class DataParseIwown: NSObject {
         biDelegate?.bleIwownDidRecieveSupportSportList(arr: arr)
     }
     
-          
     //MARK: @DataLog
     func payloadParserCurSportData(payload: Data) -> Void {
         if (payload.count < 5) {
@@ -213,6 +233,10 @@ class DataParseIwown: NSObject {
             self.payloadParserDeviceInfo(payload: payload)
         case IV_CMD_ID.DEVICE_GET_BATTERY:
             self.payloadParserBattery(payload: payload)
+        case IV_CMD_ID.DEVICE_MANUFACTURE_DATE:
+            self.payloadParserManufactureDate(payload: payload)
+        case IV_CMD_ID.DEVICE_FACTORY_CONF:
+            self.payloadParserfactureConf(payload: payload)
         default:
             print("parseDataLogGroup : 未知协议类型")
         }

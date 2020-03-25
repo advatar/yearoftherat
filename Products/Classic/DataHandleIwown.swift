@@ -21,6 +21,20 @@ public struct IW_Weather {
     public var pm:Int16
 }
 
+public struct IW_DayWeather {
+    public var tempMax:Int16
+    public var tempMin:Int16
+    public var type:UInt8
+    public var pm:Int16
+}
+
+public struct IW_24Weather {
+    public var startDate:Date
+    public var unit:UInt8
+    public var weather24Arrs:Array<IW_Weather>
+    public var weather7Arrs:Array<IW_DayWeather>
+}
+
 let DATA_LEN:Int = 40
 
 import UIKit
@@ -86,4 +100,40 @@ class DataHandleIwown: NSObject {
         let data = Data(pbytes)
         return data
     }
+    
+    func get24WeatherSet(weather24: IW_24Weather) -> Data {
+        let subYear = UInt8(weather24.startDate.year - 2000)
+        let subMonth = UInt8(weather24.startDate.month - 1)
+        let subDay = UInt8(weather24.startDate.day - 1)
+        let subHour = UInt8(weather24.startDate.hour - 1)
+
+        let pBytes = [subYear, subMonth, subDay, subHour]
+        let pData = Data(pBytes)
+         
+        var data24 = Data.init()
+        data24.append(pData)
+        data24.append(Data([weather24.unit]))
+        for i in 0..<weather24.weather24Arrs.count {
+            if (i == 24) { //只取24小时
+                break
+            }
+            let w = weather24.weather24Arrs[i]
+            let tempD = getWeatherDataWithOutUnit(weather: w);
+            data24.append(tempD)
+        }
+        return data24;
+    }
+    
+    func getWeatherDataWithOutUnit(weather: IW_Weather) -> Data {
+        var pbytes:[UInt8] = [0,0,0,0,0]
+        pbytes[0] = UInt8(weather.temp & 0xff)
+        pbytes[1] = UInt8((weather.temp>>8) & 0xff)
+        pbytes[2] = weather.type
+        pbytes[3] = UInt8(weather.pm%0x100)
+        pbytes[4] = UInt8(weather.pm/0x100)
+
+        let data = Data(pbytes)
+        return data
+    }
+
 }

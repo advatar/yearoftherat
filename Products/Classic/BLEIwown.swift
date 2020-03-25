@@ -18,7 +18,8 @@ public protocol BleIwownDelegate: class {
     //DEVICE
     func bleIwownDidRecieveDeviceInfo(deviceInfo: IW_DeivceInfo)
     func bleIwownDidRecieveBatteryInfo(batteryInfo: IW_BatteryInfo)
-
+    func bleIwownDidRecieveManuFactoryDate(str: IW_ManuFactoryDate)
+    func bleIwownDidRecieveFactoryConf(str: IW_FactoryConf)
     //CONFIG
     func bleIwownDidRecieveSupportSportList(arr: Array<IW_Sport_Uint_Code>)
     
@@ -103,6 +104,18 @@ class BLEIwown: NSObject {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_SYNCDATA, sData: data).first!
     }
     
+    public func getManufactureDate() -> Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_MANUFACTURE_DATE, sData: nil).first!
+    }
+    
+    public func getFactoryConfiguration() -> Data {
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_FACTORY_CONF, sData: nil).first!
+    }
+    
+    public func getWeather24Write(weather24: IW_24Weather) ->Data {
+        let data = dataHandle.get24WeatherSet(weather24: weather24)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DEVICE, cmd: IV_CMD_ID.DEVICE_WEATHER, sData: data).first!
+    }
     //MARK: cmds-Config
     public func readSupportSports() ->Data {
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.CONFIG, cmd: IV_CMD_ID.CONFIG_GET_SPORT_TARGET, sData: nil).first!
