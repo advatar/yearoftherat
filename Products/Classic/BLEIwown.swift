@@ -31,6 +31,10 @@ public protocol BleIwownDelegate: class {
     func bleIwownDidRecieveRealTimeData(rtData: IW_HealthSummary)
     /**hsData is nil means end of reciver*/
     func bleIwownDidRecieveSportData(hsData: IW_HealthSport?)
+    
+    func bleIwownDidRecieveIndexTable61(its: Array<IW_IndexTable>)
+    func bleIwownDidRecieveHealthMinite61(healthMinute: IW_HealthMinute?)
+
 }
 
 class BLEIwown: NSObject {
@@ -148,6 +152,79 @@ class BLEIwown: NSObject {
         let pbytes:[UInt8] = [0x00]
         let data = Data(pbytes)
         return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.DATALOG, cmd: IV_CMD_ID.DATALOG_GET_SPORTDATA, sData: data).first!
+    }
+    
+    //MARK: cmds-GNSS
+    public func syncData60() -> Data {
+        let pbytes:[UInt8] = [0x01]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.HEALTH_DAY_DATA, sData: data).first!
+    }
+    
+    public func stopData60() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.HEALTH_DAY_DATA, sData: data).first!
+    }
+    
+    public func readIndexTableInData61() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.HEALTH_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func syncHealthData61(indexTable: IW_IndexTable) -> Data {
+        let pbytes:[UInt8] = [0x01]
+        var data = Data(pbytes)
+        let itData = dataHandle.getIndexTableData(iT: indexTable)
+        data.append(itData)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.HEALTH_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func stopHealthData61() -> Data {
+        let pbytes:[UInt8] = [0x02]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.HEALTH_MINUTE_DATA, sData: data).first!
+    }
+
+    public func readIndexTableInData62() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.GNSS_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func syncHealthData62(indexTable: IW_IndexTable) -> Data {
+        let pbytes:[UInt8] = [0x01]
+        var data = Data(pbytes)
+        let itData = dataHandle.getIndexTableData(iT: indexTable)
+        data.append(itData)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.GNSS_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func stopHealthData62() -> Data {
+        let pbytes:[UInt8] = [0x02]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.GNSS_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func readIndexTableInData64() -> Data {
+        let pbytes:[UInt8] = [0x00]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.ECG_MINUTE_DATA, sData: data).first!
+    }
+       
+    public func syncHealthData64(indexTable: IW_IndexTable) -> Data {
+        let pbytes:[UInt8] = [0x01]
+        var data = Data(pbytes)
+        let itData = dataHandle.getIndexTableData(iT: indexTable)
+        data.append(itData)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.ECG_MINUTE_DATA, sData: data).first!
+    }
+    
+    public func stopHealthData64() -> Data {
+        let pbytes:[UInt8] = [0x02]
+        let data = Data(pbytes)
+        return dataHandle.dataWithGroupCmds(grp: IW_CMD_GRP.GNSS, cmd: IV_CMD_ID.ECG_MINUTE_DATA, sData: data).first!
     }
     
     //MARK: receive data

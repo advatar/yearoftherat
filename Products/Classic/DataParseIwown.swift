@@ -8,61 +8,6 @@
 
 import UIKit
 
-public struct IW_DeivceInfo {
-    public var model:String
-    public var mac:Data
-    public var version:String
-}
-
-public struct IW_BatteryInfo {
-    public var level:UInt8
-}
-
-public struct IW_ManuFactoryDate {
-    public var str:String
-}
-
-public struct IW_FactoryConf {
-    public var str:String
-}
-
-public struct IW_HealthSport {
-    public var calorie:UInt32
-    public var step:UInt32
-    public var distance:UInt32
-    public var duration:UInt32
-    public var type:UInt32
-    public var start_time:Date
-    public var end_time:Date
-    public var seq:UInt32
-}
-
-public struct IW_HealthSleep {
-    public var seq:UInt32
-    public var sleep_type:UInt32
-    /**! The same state duration ,unit is minutes*/
-    public var activity:UInt32
-    /**
-     Here for the introduction of the concept of sleep data, each group of data contains such content, the first data sleepType 1, followed by a fixed effective sleep data (sleepType == 3 | sleepType == 4), and finally A data sleepType is 2 (that means the end of the normal, this sleep data is valid) or 5 (that this is a place data, for example, put the bracelet on the table, may produce such data, the algorithm that this is not valid Sleep data, which is disturbing information), some bracelet will produce sleepType == 6 data that awake, you can also use the interval between the two groups that awake
-     sleep_enter : The start of the group is one minute, the date and start_time are the same
-     sleep_exit : Similar to sleep_enter.
-     mode : 2 or 5.
-     */
-    public var sleep_enter:UInt32
-    public var sleep_exit:UInt32
-    public var mode:UInt32
-
-    public var start_time:Date
-    public var end_time:Date
-}
-
-public struct IW_HealthSummary {
-    public var recordDate:Date
-    public var calorie:UInt32
-    public var step:UInt32
-    public var distance:UInt32
-}
-
 class DataParseIwown: NSObject {
     
     public var biDelegate:BleIwownDelegate?
@@ -202,6 +147,33 @@ class DataParseIwown: NSObject {
         }
     }
     
+    //MARK: @Gnss
+    func payloadParserHealthDayData(payload: Data) -> Void {
+        if (payload.count < 20) {
+            print("DATA LENGTH IS TOO SHORT !!! [payloadParserHealthDayData]")
+            return;
+        }
+         
+        let summary = self.healthDay60DataParsing(data: payload)
+        self.biDelegate?.bleIwownDidRecieveRealTimeData(rtData: summary)
+    }
+    
+    func payloadParserHealthMinuteData(payload: Data) -> Void {
+        let ctrlNum = UInt8(payload[0])
+        if ctrlNum == 0 {
+            let its = self.parseIndexTableWithData(data: payload.subdata(in: 1..<payload.count))
+            self.biDelegate?.bleIwownDidRecieveIndexTable61(its: its)
+        }else {
+            let healthMinute = self.healthMinute61DataParsing(data: payload)
+            self.biDelegate?.bleIwownDidRecieveHealthMinite61(healthMinute: healthMinute)
+        }
+    }
+    
+    func payloadParserGNSSMinuteData(payload: Data) -> Void {
+    }
+    
+    func payloadParserECGMinuteData(payload: Data) -> Void {
+    }
     
     //MARK: @Route
     func parseDataInIwown(ptCode: UInt8, payload: Data) ->  Void {
@@ -277,7 +249,19 @@ class DataParseIwown: NSObject {
     }
 
     func parseGNSSGroup(cmd: IW_CMD_Uint_Code, payload: Data) -> Void {
-        
+        switch cmd {
+        case IV_CMD_ID.HEALTH_DAY_DATA:
+            print("60 --")
+            self.payloadParserHealthDayData(payload: payload)
+        case IV_CMD_ID.HEALTH_MINUTE_DATA:
+            self.payloadParserHealthMinuteData(payload: payload)
+        case IV_CMD_ID.GNSS_MINUTE_DATA:
+            self.payloadParserGNSSMinuteData(payload: payload)
+        case IV_CMD_ID.ECG_MINUTE_DATA:
+            self.payloadParserECGMinuteData(payload: payload)
+        default:
+            print("parseGNSSGroup : 未知协议类型")
+        }
     }
     
     //MARK: @private
@@ -342,4 +326,133 @@ class DataParseIwown: NSObject {
         return sleep
     }
     
+    func healthDay60DataParsing(data: Data) -> IW_HealthSummary {
+        let year = Int(data[0]) + 2000
+        let month = Int(data[1]+1)
+        let day = Int(data[2]+1)
+        let date = Date(year: year, month: month, day: day, hour: 0, minute: 0)
+//        let type = UInt8(data[3])
+        let steps = self.uint32Data(data: data.subdata(in: 8..<12))
+        let distance = self.uint32Data(data: data.subdata(in: 12..<16))
+        let calories = self.uint32Data(data: data.subdata(in: 16..<20))
+        return IW_HealthSummary(recordDate: date, calorie: UInt32(calories), step: UInt32(steps), distance: UInt32(distance))
+    }
+    
+    func healthMinute61DataParsing(data: Data) -> IW_HealthMinute? {
+        let seq = self.uint16Data(data: data.subdata(in: 0..<2))
+        
+        var location = 7
+        if (data.count < location + 1) {
+            return nil
+        }
+    
+        let year = Int(data[2]) + 2000
+        let month = Int(data[3]+1)
+        let day = Int(data[4]+1)
+        let hours = Int(data[5])
+        let minutes = Int(data[6])
+        let recordDate = Date(year: year, month: month, day: day, hour: hours, minute: minutes)
+        let typeData = data[7]
+        location = location + 1
+        
+        var sport:IWH_SportMinute?
+        if (UInt8(typeData) & 0x20) > 0 {
+            sport = self.getSportDataParse(data: data.subdata(in: location..<location+10))
+            location = location + 10
+        }
+
+        var heart:IWH_HeartRate?
+        if (UInt8(typeData) & 0x01) > 0 {
+            heart = self.getHeartRateDataParse(data: data.subdata(in: location..<location+7))
+            location = location + 7
+        }
+        
+        var hrv:IWH_HRVFatigue?
+        if (UInt8(typeData) & 0x02) > 0 {
+            hrv = self.getHeartRateVariabilityData(data: data.subdata(in: location..<location+14))
+            location = location + 14
+        }
+        
+        var bl:IWH_BloodPressure?
+        if (UInt8(typeData) & 0x04) > 0 {
+            bl = self.getBloodPressData(data: data.subdata(in: location..<location+6))
+            location = location + 6
+        }
+        
+        return IW_HealthMinute(seqnum: UInt16(seq), recordDate: recordDate, dataType: UInt8(typeData), sport: sport, heartRate: heart, hrvFatigue: hrv, blp: bl, sleepCmd: data)
+    }
+    
+    func parseIndexTableWithData(data: Data) -> Array<IW_IndexTable> {
+//        let num = UInt8(data[0])
+        let mData = data.subdata(in: 1..<data.count)
+        var dataArr = Array<IW_IndexTable>()
+        while mData.count >= 10 {
+            let iT = self.getTableRowData(data: mData)
+            dataArr.append(iT)
+        }
+        return dataArr
+    }
+
+    func getTableRowData(data: Data) -> IW_IndexTable {
+        let year = Int(data[0]) + 2000
+        let month = Int(data[1]) + 1
+        let day = Int(data[2]) + 1
+        let hours = Int(data[3])
+        let minutes = Int(data[4])
+        let seconds = Int(data[5])
+        let dateMinute = Date(year: year, month: month, day: day, hour: hours, minute: minutes)
+        let recordDate = dateMinute.addingTimeInterval(TimeInterval(seconds))
+        
+        let startSeq = self.uint16Data(data: data.subdata(in: 6..<8))
+        let endSeq = self.uint16Data(data: data.subdata(in: 8..<10))
+        return IW_IndexTable(recordDate: recordDate, start: UInt16(startSeq), end: UInt16(endSeq))
+    }
+    
+    func getSportDataParse(data: Data) -> IWH_SportMinute? {
+        if data.count < 10 {
+            return nil
+        }
+        
+        let calorie = self.uint16Data(data: data.subdata(in: 0..<2))
+        let steps = self.uint16Data(data: data.subdata(in: 2..<4))
+        let distance_gsensor = self.uint16Data(data: data.subdata(in: 4..<6))
+        let sport_type = self.uint16Data(data: data.subdata(in: 6..<8))
+        let state_type_encode = UInt8(data[8])
+
+        let state_type = state_type_encode & 15
+        let pre_minute = (state_type_encode & 240)>>4
+        let reserve = UInt8(data[9])
+        return IWH_SportMinute(sport_type: UInt8(sport_type), steps: UInt32(calorie), distance: UInt32(steps), calorie: UInt32(distance_gsensor), stateType: state_type, second: reserve, preMinute: pre_minute)
+    }
+    
+    func getHeartRateDataParse(data: Data) -> IWH_HeartRate {
+        let minData = self.uint16Data(data: data.subdata(in: 0..<2))
+        let maxData = self.uint16Data(data: data.subdata(in: 2..<4))
+        let avgData = self.uint16Data(data: data.subdata(in: 4..<6))
+        let level = UInt8(data[6])
+        return IWH_HeartRate(minBpm: UInt16(minData), maxBpm: UInt16(maxData), avgBpm: UInt16(avgData), level: level)
+    }
+    
+    func getHeartRateVariabilityData(data: Data) -> IWH_HRVFatigue {
+        let sdnn = self.uint16Data(data: data.subdata(in: 0..<2))/10
+        let rmssd = self.uint32Data(data: data.subdata(in: 2..<6))/10
+        let pnn50 = self.uint32Data(data: data.subdata(in: 6..<10))/10
+        let mean = self.uint16Data(data: data.subdata(in: 10..<12))/10
+        let bpm = self.uint16Data(data: data.subdata(in: 12..<14))/10
+
+        var fatigue:UInt32
+        if bpm > 0 {
+            fatigue = UInt32(bpm)
+        }else {
+            fatigue = UInt32(log(Double(rmssd))*20.0);
+        }
+        return IWH_HRVFatigue(sdnn: UInt32(sdnn), rmssd: UInt32(rmssd), pnn50: UInt32(pnn50), mean: UInt32(mean), fatigue: fatigue)
+    }
+    
+    func getBloodPressData(data:Data) -> IWH_BloodPressure {
+        let sbp = self.uint16Data(data: data.subdata(in: 0..<2))
+        let dbp = self.uint16Data(data: data.subdata(in: 2..<4))
+        let bpm = self.uint16Data(data: data.subdata(in: 4..<6))
+        return IWH_BloodPressure(sbp: UInt16(sbp), dbp: UInt16(dbp), bpm: UInt16(bpm))
+    }
 }

@@ -135,5 +135,18 @@ class DataHandleIwown: NSObject {
         let data = Data(pbytes)
         return data
     }
+    
+    func getIndexTableData(iT : IW_IndexTable) -> Data {
+        var pbytes:[UInt8] = [0,0,0,0,0,0,0]
+        pbytes[0] = UInt8(iT.recordDate.year-2000)
+        pbytes[1] = UInt8(iT.recordDate.month-1)
+        pbytes[2] = UInt8(iT.recordDate.day-1)
+        pbytes[3] = UInt8(iT.start%0x100)
+        pbytes[4] = UInt8(iT.start>>8)
+        pbytes[5] = UInt8(iT.end%0x100)
+        pbytes[6] = UInt8(iT.end>>8)
 
+        let data = Data(pbytes)
+        return data
+    }
 }

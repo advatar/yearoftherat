@@ -66,6 +66,7 @@
 		D65203B523D0316B0050C6FD /* BLEProtobuf_f.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652039223D0316B0050C6FD /* BLEProtobuf_f.swift */; };
 		D65203B623D0316B0050C6FD /* DataParseProtobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652039323D0316B0050C6FD /* DataParseProtobuf.swift */; };
 		D65203B723D0316B0050C6FD /* DataHandleProtobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652039423D0316B0050C6FD /* DataHandleProtobuf.swift */; };
+		D65462AB242F274F00AFD501 /* DataParseIwown_e.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65462AA242F274F00AFD501 /* DataParseIwown_e.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		D652039223D0316B0050C6FD /* BLEProtobuf_f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEProtobuf_f.swift; sourceTree = "<group>"; };
 		D652039323D0316B0050C6FD /* DataParseProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParseProtobuf.swift; sourceTree = "<group>"; };
 		D652039423D0316B0050C6FD /* DataHandleProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandleProtobuf.swift; sourceTree = "<group>"; };
+		D65462AA242F274F00AFD501 /* DataParseIwown_e.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParseIwown_e.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				D61177D22423996C00EBA0B5 /* BLEIwown.swift */,
 				D61177D62424592400EBA0B5 /* BLEIwown_e.swift */,
 				D61177DA242491BF00EBA0B5 /* DataParseIwown.swift */,
+				D65462AA242F274F00AFD501 /* DataParseIwown_e.swift */,
 				D61177D4242458CF00EBA0B5 /* DataHandleIwown.swift */,
 				D61177D824246FF100EBA0B5 /* DataHelperIwown.swift */,
 			);
@@ -488,6 +491,7 @@
 				D65203AD23D0316B0050C6FD /* his_gnss_data.pb.swift in Sources */,
 				D65203B423D0316B0050C6FD /* BLEProtobuf.swift in Sources */,
 				D652039F23D0316B0050C6FD /* his_swim_data.pb.swift in Sources */,
+				D65462AB242F274F00AFD501 /* DataParseIwown_e.swift in Sources */,
 				D652028A23D005440050C6FD /* AppDelegate.swift in Sources */,
 				D65203AC23D0316B0050C6FD /* peer_info.pb.swift in Sources */,
 				D652039923D0316B0050C6FD /* gsm_command.pb.swift in Sources */,
