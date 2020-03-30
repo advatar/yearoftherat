@@ -146,6 +146,42 @@ class DataParseIwown: NSObject {
             sport.end_time = endDate
         }
     }
+    //MARK: @HEARTRATE
+    func payloadParserHeartRateData(payload: Data) -> Void {
+        if (payload.count < 6) {
+            print("DATA LENGTH IS TOO SHORT !!! [payloadParserHeartRateData]")
+            return;
+        }
+        
+        let seq = self.uint16Data(data: payload.subdata(in: 0..<2))
+        let year = Int(payload[2]) + 2000
+        let month = Int(payload[3]) + 1
+        let day = Int(payload[4]) + 1
+        let hour = Int(payload[5])
+        var recordDate = Date()
+        if (year == 2255 &&
+            month == 256 &&
+            day == 256 &&
+            hour == 255) {
+            //当前时间数据
+            recordDate = Date(year: year, month: month, day: day, hour: hour, minute: 0)
+        }
+        
+        var arr = Array<UInt8>()
+        for i in 6..<payload.count {
+            let hr = UInt8(payload[i])
+            arr.append(hr)
+        }
+        
+        if (arr.count == 60) { //处理固件错位问题
+            let arr0 = arr[0]
+            arr.remove(at: 0)
+            arr.append(arr0)
+        }
+        
+        let heartRate = IW_HeartRate53(seq: UInt32(seq), recordDate: recordDate, heartRates: arr)
+        self.biDelegate?.bleIwownDidRecieveHeartRate53(hr53: heartRate)
+    }
     
     //MARK: @Gnss
     func payloadParserHealthDayData(payload: Data) -> Void {
@@ -170,11 +206,27 @@ class DataParseIwown: NSObject {
     }
     
     func payloadParserGNSSMinuteData(payload: Data) -> Void {
+        let ctrlNum = UInt8(payload[0])
+        if ctrlNum == 0 {
+            let its = self.parseIndexTableWithData(data: payload.subdata(in: 1..<payload.count))
+            self.biDelegate?.bleIwownDidRecieveIndexTable62(its: its)
+        }else {
+            let gnss = self.gnss62DataParsing(data: payload)
+            self.biDelegate?.bleIwownDidRecieveGnss62(gnss: gnss)
+        }
     }
     
     func payloadParserECGMinuteData(payload: Data) -> Void {
+        let ctrlNum = UInt8(payload[0])
+        if ctrlNum == 0 {
+            let its = self.parseIndexTableWithData(data: payload.subdata(in: 1..<payload.count))
+            self.biDelegate?.bleIwownDidRecieveIndexTable64(its: its)
+        }else {
+            let ecg = self.ecg64DataParsing(data: payload)
+            self.biDelegate?.bleIwownDidRecieveEcg64(ecg: ecg)
+        }
     }
-    
+
     //MARK: @Route
     func parseDataInIwown(ptCode: UInt8, payload: Data) ->  Void {
         let grp:IW_CMD_Uint_Code = IW_CMD_Uint_Code(ptCode >> 4)
@@ -243,6 +295,7 @@ class DataParseIwown: NSObject {
             print("51 --")
         case IV_CMD_ID.HEARTRATE_HOURS_DATA:
             print("53 --")
+            self.payloadParserHeartRateData(payload: payload)
         default:
             print("parseHeartRateGroup : 未知协议类型")
         }
@@ -382,6 +435,60 @@ class DataParseIwown: NSObject {
         return IW_HealthMinute(seqnum: UInt16(seq), recordDate: recordDate, dataType: UInt8(typeData), sport: sport, heartRate: heart, hrvFatigue: hrv, blp: bl, sleepCmd: data)
     }
     
+    func gnss62DataParsing(data: Data) -> IW_GNSSData? {
+        let seq = self.uint16Data(data: data.subdata(in: 0..<2))
+        let year = Int(data[2]) + 2000
+        let month = Int(data[3]+1)
+        let day = Int(data[4]+1)
+        let hours = Int(data[5])
+        let minutes = Int(data[6])
+        let recordDate = Date(year: year, month: month, day: day, hour: hours, minute: minutes)
+        
+        let freq = Int(data[7])
+        let num = Int(data[8])
+
+        if (data.count < 9 + num * 14) {
+            return nil
+        }
+        
+        var dataArr = Array<IWG_Point>()
+        for i in 0..<num {
+            let start = 18+i*14
+            let gnssPot = self.getGNSSData(data: data.subdata(in: start..<start+14))
+            dataArr.append(gnssPot)
+        }
+        return IW_GNSSData(seqnum: UInt16(seq), recordDate: recordDate, freq: UInt16(freq), num: UInt16(num), dataArray: dataArr)
+    }
+    
+    func ecg64DataParsing(data: Data) -> IW_ECGData {
+        let seq = self.uint16Data(data: data.subdata(in: 0..<2))
+        let year = Int(data[2]) + 2000
+        let month = Int(data[3]+1)
+        let day = Int(data[4]+1)
+        let hours = Int(data[5])
+        let minutes = Int(data[6])
+        let seconds = Int(data[7])
+        var recordDate = Date(year: year, month: month, day: day, hour: hours, minute: minutes)
+        recordDate = recordDate.addingTimeInterval(TimeInterval(seconds))
+        
+        var ecg_raw_data = Array<Int>()
+        let rawData = data.subdata(in: 8..<data.count)
+        if rawData.count > 120 {
+            for i in 0..<rawData.count/4 {
+                let rSub = rawData.subdata(in: i*4..<i*4+4)
+                let ecgValue = self.uint32Data(data: rSub)
+                ecg_raw_data.append(ecgValue)
+            }
+        }else {
+            for i in 0..<rawData.count/2 {
+                let rSub = rawData.subdata(in: i*2..<i*2+2)
+                let ecgValue = self.uint32Data(data: rSub)
+                ecg_raw_data.append(ecgValue)
+            }
+        }
+        return IW_ECGData(seqnum: UInt16(seq), recordDate: recordDate, dataArray: ecg_raw_data)
+    }
+
     func parseIndexTableWithData(data: Data) -> Array<IW_IndexTable> {
 //        let num = UInt8(data[0])
         let mData = data.subdata(in: 1..<data.count)
@@ -454,5 +561,34 @@ class DataParseIwown: NSObject {
         let dbp = self.uint16Data(data: data.subdata(in: 2..<4))
         let bpm = self.uint16Data(data: data.subdata(in: 4..<6))
         return IWH_BloodPressure(sbp: UInt16(sbp), dbp: UInt16(dbp), bpm: UInt16(bpm))
+    }
+    
+    func getGNSSData(data: Data) -> IWG_Point {
+        let longitudeDegree = Int(data[0])
+        let longitudeMinute = Int(data[1])
+        let longitudeSecond = Int(data[2])
+        let longitudePrec = Int(data[3])
+        var longitudeDirection = Int(data[4])
+        let latitudeDegree = Int(data[5])
+        let latitudeMinute = Int(data[6])
+        let latitudeSecond = Int(data[7])
+        let latitudePrec = Int(data[8])
+        var latitudeDirection = Int(data[9])
+        let gpsSpeed = self.uint16Data(data: data.subdata(in: 10..<12))
+        let altitude = self.uint16Data(data: data.subdata(in: 12..<14))
+
+        if (longitudeDirection == 0){ // 0为东经
+            longitudeDirection = 1
+        }else {
+            longitudeDirection = -1
+        }
+        if (latitudeDirection == 0){ //0 为北纬
+            latitudeDirection = 1
+        }else {
+            latitudeDirection = -1
+        }
+        let longitude = Float(longitudeDirection) * (Float(longitudeDegree) + Float(longitudeMinute)/60.0 + (Float(longitudeSecond) + Float(longitudePrec)/100.0)/3600.0)
+        let latitude = Float(latitudeDirection) * (Float(latitudeDegree) + Float(latitudeMinute)/60.0 + (Float(latitudeSecond) + Float(latitudePrec)/100.0)/3600.0)
+        return IWG_Point(longitude: longitude, latitude: latitude, altitude: altitude, gpsSpeed: gpsSpeed)
     }
 }

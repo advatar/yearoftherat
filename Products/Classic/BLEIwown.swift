@@ -32,9 +32,16 @@ public protocol BleIwownDelegate: class {
     /**hsData is nil means end of reciver*/
     func bleIwownDidRecieveSportData(hsData: IW_HealthSport?)
     
+    func bleIwownDidRecieveHeartRate53(hr53: IW_HeartRate53?)
+    
     func bleIwownDidRecieveIndexTable61(its: Array<IW_IndexTable>)
     func bleIwownDidRecieveHealthMinite61(healthMinute: IW_HealthMinute?)
 
+    func bleIwownDidRecieveIndexTable62(its: Array<IW_IndexTable>)
+    func bleIwownDidRecieveGnss62(gnss: IW_GNSSData?)
+
+    func bleIwownDidRecieveIndexTable64(its: Array<IW_IndexTable>)
+    func bleIwownDidRecieveEcg64(ecg: IW_ECGData?)
 }
 
 class BLEIwown: NSObject {

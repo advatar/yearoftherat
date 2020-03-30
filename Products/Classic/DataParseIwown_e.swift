@@ -63,6 +63,12 @@ public struct IW_HealthSummary {
     public var distance:UInt32
 }
 
+public struct IW_HeartRate53 {
+    public var seq:UInt32
+    public var recordDate:Date
+    public var heartRates:Array<UInt8>
+}
+
 public struct IW_IndexTable {
     public var recordDate:Date
     public var start:UInt16
@@ -123,3 +129,27 @@ public struct IW_HealthMinute {
     public var blp:IWH_BloodPressure?
     public var sleepCmd:Data
 }
+
+public struct IWG_Point {
+    public var longitude:Float
+    public var latitude:Float
+    public var altitude:Int
+    public var gpsSpeed:Int
+}
+
+public struct IW_GNSSData {
+    public var seqnum:UInt16
+    public var recordDate:Date
+    public var freq:UInt16
+    //经纬度个数
+    public var num:UInt16
+    //经纬度 数组
+    public var dataArray:Array<IWG_Point>
+}
+
+public struct IW_ECGData {
+    public var seqnum:UInt16
+    public var recordDate:Date
+    public var dataArray:Array<Any>
+}
+
