@@ -198,6 +198,17 @@ extension PeripheralViewController: BleProtobufDelegate {
     
     func bleProtobufDidRecieveDataIndexTable(type: PB_HisDatatype, indexTables: [PB_HisIndexTable]) {
         print("bleProtobufDidRecieveDataIndexTable \(type) \(indexTables)")
+        
+        // So, you need to check per data type what end and start seq are and then wait for all of it to arrive.
+        
+        var str = ""
+        for item in indexTables {
+            let snippet = " \(item.date)  \(item.startSeq) \(item.endSeq)"
+            str += snippet
+            print(snippet)
+        }
+        
+        textView.text =  textView.text + str
         textView.text =  textView.text + "\(type) \(indexTables)"
     }
     
