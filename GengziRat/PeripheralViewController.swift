@@ -39,7 +39,7 @@ class PeripheralViewController: UIViewController {
     }
     
     func getHisBlockArray() -> Array<PB_HisBlock> {
-        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 100)
+        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 1000)
         return [hisBk]
     }
     
