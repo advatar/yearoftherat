@@ -9,6 +9,47 @@ import CoreBluetooth
 import UIKit
 import os.log
 
+typealias JSON = Dictionary<String,Any>
+
+/*
+{
+   "seq":506,
+   "ecg":{
+      "timeStamp":{
+         "dateTime":{
+            "seconds":1579886486
+         },
+         "timeZone":1
+      },
+      "rawData":[
+         27,
+    .....
+         115,
+         160,
+         136,
+         86
+      ]
+   }
+}*/
+
+struct MyDateTime: Codable {
+    let seconds: Int
+}
+
+struct TimeStamp: Codable {
+    let dateTime: MyDateTime
+    let timeZone: Int
+}
+
+struct EcgData: Codable {
+    let timeStamp: TimeStamp
+    let rawData: [Int]
+}
+
+struct EcgSeq: Codable {
+    let seq: Int
+    let ecg: EcgData
+}
 
 class PeripheralViewController: UIViewController {
     
@@ -25,7 +66,10 @@ class PeripheralViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     private var peripheralConnectedState = false
-        
+    
+    var ecgData = [Int]()
+    var lastSeq: Int = 0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -39,7 +83,7 @@ class PeripheralViewController: UIViewController {
     }
     
     func getHisBlockArray() -> Array<PB_HisBlock> {
-        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 1000)
+        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 100)
         return [hisBk]
     }
     
@@ -65,6 +109,7 @@ class PeripheralViewController: UIViewController {
         
         selectedPeripheral?.writeValue(data, for: writeCharacter, type: CBCharacteristicWriteType.withoutResponse)
         
+        /* Uncomment for other datatypes
         data = protobufIns.getStartSync(type: PB_HisDatatype.healthData, blocks: self.getHisBlockArray())
         
         selectedPeripheral?.writeValue(data, for: writeCharacter, type: CBCharacteristicWriteType.withoutResponse)
@@ -87,7 +132,7 @@ class PeripheralViewController: UIViewController {
 
         data = protobufIns.getStartSync(type: PB_HisDatatype.swimData, blocks: self.getHisBlockArray())
         
-        selectedPeripheral?.writeValue(data, for: writeCharacter, type: CBCharacteristicWriteType.withoutResponse)
+        selectedPeripheral?.writeValue(data, for: writeCharacter, type: CBCharacteristicWriteType.withoutResponse)*/
 
     }
     
@@ -212,10 +257,29 @@ extension PeripheralViewController: BleProtobufDelegate {
         textView.text =  textView.text + "\(type) \(indexTables)"
     }
     
+    
+    
     func bleProtobufDidRecieveData(type: PB_HisDatatype, hisData: PB_HisData) {
-        print("bleProtobufDidRecieveData \(type) \(hisData)")
+        
+        //print("bleProtobufDidRecieveData \(type) \(hisData)")
         textView.text =  textView.text + "\(type) \(hisData)"
+        
+        // PB_HisData is JSON String, convert to object. Design similar classes to decode other datatypes.
+        let str = hisData.jsonData
+        //print("str \(str)")
+        if let data = str.data(using: .utf8) {
+            let decoder = JSONDecoder()
+            if let ecgSeq = try? decoder.decode(EcgSeq.self, from: data) {
+                print(ecgSeq)
+                ecgData.append(contentsOf: ecgSeq.ecg.rawData)
+                lastSeq = ecgSeq.seq
+            } else {
+                print("could not decode")
+            }
+        } else {
+            print("could not convert to data")
+        }
     }
     
-    
 }
+
