@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0CA017882462C04F00A51277 /* EcgLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CA017872462C04F00A51277 /* EcgLib.framework */; };
-		0CA017892462C05000A51277 /* EcgLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CA017872462C04F00A51277 /* EcgLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0C664A2C246E8B58009352D1 /* EcgLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C664A2B246E8B58009352D1 /* EcgLib.framework */; };
+		0C664A2D246E8B58009352D1 /* EcgLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C664A2B246E8B58009352D1 /* EcgLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0C664A30246E8BAC009352D1 /* dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C664A2F246E8BAC009352D1 /* dummy.m */; };
 		1B800A97930D6E6693C68DB5 /* Pods_GengziRat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */; };
 		D61177D32423996C00EBA0B5 /* BLEIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D22423996C00EBA0B5 /* BLEIwown.swift */; };
 		D61177D5242458CF00EBA0B5 /* DataHandleIwown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61177D4242458CF00EBA0B5 /* DataHandleIwown.swift */; };
@@ -78,7 +79,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0CA017892462C05000A51277 /* EcgLib.framework in Embed Frameworks */,
+				0C664A2D246E8B58009352D1 /* EcgLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,7 +87,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0CA017872462C04F00A51277 /* EcgLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EcgLib.framework; path = GengziRat/EcgLib.framework; sourceTree = "<group>"; };
+		0C664A2B246E8B58009352D1 /* EcgLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EcgLib.framework; sourceTree = "<group>"; };
+		0C664A2E246E8BAC009352D1 /* GengziRat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GengziRat-Bridging-Header.h"; sourceTree = "<group>"; };
+		0C664A2F246E8BAC009352D1 /* dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dummy.m; sourceTree = "<group>"; };
 		60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.debug.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.debug.xcconfig"; sourceTree = "<group>"; };
 		A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GengziRat.release.xcconfig"; path = "Target Support Files/Pods-GengziRat/Pods-GengziRat.release.xcconfig"; sourceTree = "<group>"; };
 		C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GengziRat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,7 +154,6 @@
 		D652039323D0316B0050C6FD /* DataParseProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParseProtobuf.swift; sourceTree = "<group>"; };
 		D652039423D0316B0050C6FD /* DataHandleProtobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandleProtobuf.swift; sourceTree = "<group>"; };
 		D65462AA242F274F00AFD501 /* DataParseIwown_e.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParseIwown_e.swift; sourceTree = "<group>"; };
-		D75537B3244FCF0700E60964 /* EcgLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EcgLib.framework; path = ../../EcgLib/Products/EcgLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CA017882462C04F00A51277 /* EcgLib.framework in Frameworks */,
+				0C664A2C246E8B58009352D1 /* EcgLib.framework in Frameworks */,
 				1B800A97930D6E6693C68DB5 /* Pods_GengziRat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,8 +172,7 @@
 		3DE223BF979196AFA13D35D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D75537B3244FCF0700E60964 /* EcgLib.framework */,
-				0CA017872462C04F00A51277 /* EcgLib.framework */,
+				0C664A2B246E8B58009352D1 /* EcgLib.framework */,
 				C0783F2F33FD04D2F6FCAE71 /* Pods_GengziRat.framework */,
 			);
 			name = Frameworks;
@@ -231,6 +232,8 @@
 				D652029223D005490050C6FD /* Assets.xcassets */,
 				D652029423D005490050C6FD /* LaunchScreen.storyboard */,
 				D652029723D005490050C6FD /* Info.plist */,
+				0C664A2F246E8BAC009352D1 /* dummy.m */,
+				0C664A2E246E8BAC009352D1 /* GengziRat-Bridging-Header.h */,
 			);
 			path = GengziRat;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				TargetAttributes = {
 					D652028523D005440050C6FD = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -481,6 +485,7 @@
 				D652036A23D031600050C6FD /* CHOptionController.swift in Sources */,
 				D652036823D031600050C6FD /* MoreViewController.swift in Sources */,
 				D65203AA23D0316B0050C6FD /* files_update.pb.swift in Sources */,
+				0C664A30246E8BAC009352D1 /* dummy.m in Sources */,
 				D652039623D0316B0050C6FD /* alarmclock.pb.swift in Sources */,
 				D65203A623D0316B0050C6FD /* msg_notify.pb.swift in Sources */,
 				D61177D72424592400EBA0B5 /* BLEIwown_e.swift in Sources */,
@@ -675,11 +680,13 @@
 			baseConfigurationReference = 60BB549EFDDCA2E5830900BD /* Pods-GengziRat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63UM45383T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GengziRat",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = GengziRat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -689,6 +696,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.iwown.GengziRat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GengziRat/GengziRat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -699,11 +708,13 @@
 			baseConfigurationReference = A8238AA46FB9A60CEACEAA8D /* Pods-GengziRat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63UM45383T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GengziRat",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = GengziRat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -713,6 +724,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.iwown.GengziRat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GengziRat/GengziRat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

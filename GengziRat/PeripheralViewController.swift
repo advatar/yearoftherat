@@ -51,6 +51,7 @@ struct EcgSeq: Codable {
     let ecg: EcgData
 }
 
+
 class PeripheralViewController: UIViewController {
     
     @IBOutlet internal var pTableView: UITableView!
@@ -70,6 +71,8 @@ class PeripheralViewController: UIViewController {
     var ecgData = [Int]()
     var lastSeq: Int = 0
     
+    let endSeqEcg: UInt32 = 380
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -83,8 +86,13 @@ class PeripheralViewController: UIViewController {
     }
     
     func getHisBlockArray() -> Array<PB_HisBlock> {
-        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: 100)
+        let hisBk = PB_HisBlock.init(startSeq: 0, endSeq: endSeqEcg)
         return [hisBk]
+    }
+    
+    func applyFilter() {
+        let filteredValues = ECGFilter.filterEcgData(ecgData)
+        print(filteredValues)
     }
     
     func loadData() {
@@ -272,6 +280,19 @@ extension PeripheralViewController: BleProtobufDelegate {
             if let ecgSeq = try? decoder.decode(EcgSeq.self, from: data) {
                 print(ecgSeq)
                 ecgData.append(contentsOf: ecgSeq.ecg.rawData)
+                
+                if ecgSeq.seq == endSeqEcg - 1 {
+                    // Now we can filter
+                    print("try to filter")
+                    if let filteredValues = ECGFilter.filterEcgData(ecgData) as? [Int] {
+                        print("filteredValues [Int) \(filteredValues)")
+                    } else {
+                        print("filteredValues [Any] \(ECGFilter.filterEcgData(ecgData))")
+                    }
+                } else {
+                    print("just continue")
+                }
+                
                 lastSeq = ecgSeq.seq
             } else {
                 print("could not decode")
